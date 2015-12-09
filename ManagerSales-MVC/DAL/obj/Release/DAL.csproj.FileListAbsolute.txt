@@ -1,0 +1,14 @@
+D:\SourceTreeProjects\Tracking-Service\Tracking-Service\DAL\bin\Release\DAL.dll.config
+D:\SourceTreeProjects\Tracking-Service\Tracking-Service\DAL\bin\Release\DAL.dll
+D:\SourceTreeProjects\Tracking-Service\Tracking-Service\DAL\bin\Release\DAL.pdb
+D:\SourceTreeProjects\Tracking-Service\Tracking-Service\DAL\bin\Release\EntityFramework.dll
+D:\SourceTreeProjects\Tracking-Service\Tracking-Service\DAL\bin\Release\EntityFramework.SqlServer.dll
+D:\SourceTreeProjects\Tracking-Service\Tracking-Service\DAL\bin\Release\EntytiModel.dll
+D:\SourceTreeProjects\Tracking-Service\Tracking-Service\DAL\bin\Release\EntytiModel.pdb
+D:\SourceTreeProjects\Tracking-Service\Tracking-Service\DAL\bin\Release\EntityFramework.xml
+D:\SourceTreeProjects\Tracking-Service\Tracking-Service\DAL\bin\Release\EntityFramework.SqlServer.xml
+D:\SourceTreeProjects\Tracking-Service\Tracking-Service\DAL\bin\Release\ru\EntityFramework.resources.dll
+D:\SourceTreeProjects\Tracking-Service\Tracking-Service\DAL\bin\Release\ru\EntityFramework.SqlServer.resources.dll
+D:\SourceTreeProjects\Tracking-Service\Tracking-Service\DAL\obj\Release\DAL.csprojResolveAssemblyReference.cache
+D:\SourceTreeProjects\Tracking-Service\Tracking-Service\DAL\obj\Release\DAL.dll
+D:\SourceTreeProjects\Tracking-Service\Tracking-Service\DAL\obj\Release\DAL.pdb

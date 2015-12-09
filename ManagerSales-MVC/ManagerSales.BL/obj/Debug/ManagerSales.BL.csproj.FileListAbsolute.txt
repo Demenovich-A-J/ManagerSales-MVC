@@ -1,0 +1,10 @@
+D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales.BL\bin\Debug\ManagerSales.BL.dll
+D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales.BL\bin\Debug\ManagerSales.BL.pdb
+D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales.BL\obj\Debug\ManagerSales.BL.csprojResolveAssemblyReference.cache
+D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales.BL\obj\Debug\ManagerSales.BL.dll
+D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales.BL\obj\Debug\ManagerSales.BL.pdb
+D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales-MVC\ManagerSales.BL\bin\Debug\ManagerSales.BL.dll
+D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales-MVC\ManagerSales.BL\bin\Debug\ManagerSales.BL.pdb
+D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales-MVC\ManagerSales.BL\obj\Debug\ManagerSales.BL.csprojResolveAssemblyReference.cache
+D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales-MVC\ManagerSales.BL\obj\Debug\ManagerSales.BL.dll
+D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales-MVC\ManagerSales.BL\obj\Debug\ManagerSales.BL.pdb

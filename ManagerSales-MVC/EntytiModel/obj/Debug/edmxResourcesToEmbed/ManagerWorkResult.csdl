@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ManagerWorkResult" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="ManagerWorkResultContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ManagerSet" EntityType="ManagerWorkResult.Manager" />
+    <EntitySet Name="WorkResultsSet" EntityType="ManagerWorkResult.WorkResults" />
+    <AssociationSet Name="ManagerWorkResults" Association="ManagerWorkResult.ManagerWorkResults">
+      <End Role="Manager" EntitySet="ManagerSet" />
+      <End Role="WorkResults" EntitySet="WorkResultsSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Manager">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <NavigationProperty Name="WorkResults" Relationship="ManagerWorkResult.ManagerWorkResults" FromRole="Manager" ToRole="WorkResults" />
+  </EntityType>
+  <EntityType Name="WorkResults">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Nullable="false" />
+    <Property Name="Customer" Type="String" Nullable="false" />
+    <Property Name="Product" Type="String" Nullable="false" />
+    <Property Name="Summ" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Manager" Relationship="ManagerWorkResult.ManagerWorkResults" FromRole="WorkResults" ToRole="Manager" />
+    <Property Name="ManagerId" Type="String" Nullable="false" />
+  </EntityType>
+  <Association Name="ManagerWorkResults">
+    <End Type="ManagerWorkResult.Manager" Role="Manager" Multiplicity="1" />
+    <End Type="ManagerWorkResult.WorkResults" Role="WorkResults" Multiplicity="*" />
+  </Association>
+</Schema>

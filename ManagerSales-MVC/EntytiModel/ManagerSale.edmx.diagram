@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8dded3a73734426b8ec639a0c6103d50" Name="Diagram1">
+        <EntityTypeShape EntityType="ManagerSaleDBModel.Customer" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ManagerSaleDBModel.Manager" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ManagerSaleDBModel.Product" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ManagerSaleDBModel.Sale" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="ManagerSaleDBModel.FK_Sale_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="ManagerSaleDBModel.FK_Sale_Managers" ManuallyRouted="false" />
+        <AssociationConnector Association="ManagerSaleDBModel.FK_Sale_Products" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ManagerSaleDBModel.DocumentInfo" Width="1.5" PointX="3" PointY="4" />
+        <AssociationConnector Association="ManagerSaleDBModel.FK_DocumentInfo_Managers" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ManagerSales" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="ManagerSalesContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ManagerSet" EntityType="ManagerSales.Manager" />
+    <EntitySet Name="CustomerSet" EntityType="ManagerSales.Customer" />
+    <EntitySet Name="ProductSet" EntityType="ManagerSales.Product" />
+    <EntitySet Name="SaleSet" EntityType="ManagerSales.Sale" />
+    <AssociationSet Name="ManagerSale" Association="ManagerSales.ManagerSale">
+      <End Role="Manager" EntitySet="ManagerSet" />
+      <End Role="Sale" EntitySet="SaleSet" />
+    </AssociationSet>
+    <AssociationSet Name="CustomerSale" Association="ManagerSales.CustomerSale">
+      <End Role="Customer" EntitySet="CustomerSet" />
+      <End Role="Sale" EntitySet="SaleSet" />
+    </AssociationSet>
+    <AssociationSet Name="ProductSale" Association="ManagerSales.ProductSale">
+      <End Role="Product" EntitySet="ProductSet" />
+      <End Role="Sale" EntitySet="SaleSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Manager">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <NavigationProperty Name="Sale" Relationship="ManagerSales.ManagerSale" FromRole="Manager" ToRole="Sale" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <NavigationProperty Name="Sale" Relationship="ManagerSales.CustomerSale" FromRole="Customer" ToRole="Sale" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <NavigationProperty Name="Sale" Relationship="ManagerSales.ProductSale" FromRole="Product" ToRole="Sale" />
+  </EntityType>
+  <EntityType Name="Sale">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Manager" Relationship="ManagerSales.ManagerSale" FromRole="Sale" ToRole="Manager" />
+    <Property Name="ManagerId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="ManagerSales.CustomerSale" FromRole="Sale" ToRole="Customer" />
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="ManagerSales.ProductSale" FromRole="Sale" ToRole="Product" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" />
+    <Property Name="Summ" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="ManagerSale">
+    <End Type="ManagerSales.Manager" Role="Manager" Multiplicity="1" />
+    <End Type="ManagerSales.Sale" Role="Sale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manager">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sale">
+        <PropertyRef Name="ManagerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CustomerSale">
+    <End Type="ManagerSales.Customer" Role="Customer" Multiplicity="1" />
+    <End Type="ManagerSales.Sale" Role="Sale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sale">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductSale">
+    <End Type="ManagerSales.Product" Role="Product" Multiplicity="1" />
+    <End Type="ManagerSales.Sale" Role="Sale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sale">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

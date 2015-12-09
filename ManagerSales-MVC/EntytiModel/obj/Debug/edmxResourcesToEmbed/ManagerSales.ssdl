@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ManagerSales.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ManagerSalesStoreContainer">
+    <EntitySet Name="ManagerSet" EntityType="ManagerSales.Store.ManagerSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CustomerSet" EntityType="ManagerSales.Store.CustomerSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProductSet" EntityType="ManagerSales.Store.ProductSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SaleSet" EntityType="ManagerSales.Store.SaleSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ManagerSale" Association="ManagerSales.Store.ManagerSale">
+      <End Role="Manager" EntitySet="ManagerSet" />
+      <End Role="Sale" EntitySet="SaleSet" />
+    </AssociationSet>
+    <AssociationSet Name="CustomerSale" Association="ManagerSales.Store.CustomerSale">
+      <End Role="Customer" EntitySet="CustomerSet" />
+      <End Role="Sale" EntitySet="SaleSet" />
+    </AssociationSet>
+    <AssociationSet Name="ProductSale" Association="ManagerSales.Store.ProductSale">
+      <End Role="Product" EntitySet="ProductSet" />
+      <End Role="Sale" EntitySet="SaleSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ManagerSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CustomerSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SaleSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ManagerId" Type="int" Nullable="false" />
+    <Property Name="CustomerId" Type="int" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ManagerSale">
+    <End Role="Manager" Type="ManagerSales.Store.ManagerSet" Multiplicity="1" />
+    <End Role="Sale" Type="ManagerSales.Store.SaleSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manager">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sale">
+        <PropertyRef Name="ManagerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CustomerSale">
+    <End Role="Customer" Type="ManagerSales.Store.CustomerSet" Multiplicity="1" />
+    <End Role="Sale" Type="ManagerSales.Store.SaleSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sale">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductSale">
+    <End Role="Product" Type="ManagerSales.Store.ProductSet" Multiplicity="1" />
+    <End Role="Sale" Type="ManagerSales.Store.SaleSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sale">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

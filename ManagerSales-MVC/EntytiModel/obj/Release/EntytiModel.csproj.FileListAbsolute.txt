@@ -1,0 +1,11 @@
+D:\SourceTreeProjects\Tracking-Service\EntytiModel\bin\Release\EntytiModel.dll.config
+D:\SourceTreeProjects\Tracking-Service\EntytiModel\bin\Release\EntytiModel.dll
+D:\SourceTreeProjects\Tracking-Service\EntytiModel\bin\Release\EntytiModel.pdb
+D:\SourceTreeProjects\Tracking-Service\EntytiModel\bin\Release\EntityFramework.dll
+D:\SourceTreeProjects\Tracking-Service\EntytiModel\bin\Release\EntityFramework.SqlServer.dll
+D:\SourceTreeProjects\Tracking-Service\EntytiModel\bin\Release\EntityFramework.xml
+D:\SourceTreeProjects\Tracking-Service\EntytiModel\bin\Release\EntityFramework.SqlServer.xml
+D:\SourceTreeProjects\Tracking-Service\EntytiModel\bin\Release\ru\EntityFramework.resources.dll
+D:\SourceTreeProjects\Tracking-Service\EntytiModel\bin\Release\ru\EntityFramework.SqlServer.resources.dll
+D:\SourceTreeProjects\Tracking-Service\EntytiModel\obj\Release\EntytiModel.dll
+D:\SourceTreeProjects\Tracking-Service\EntytiModel\obj\Release\EntytiModel.pdb
