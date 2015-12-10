@@ -1,26 +1,28 @@
 ﻿using System.Linq;
+using AutoMapper;
 using DAL.ReposytoryModel.AbstractClasses;
 using EntytiModel;
 using Product = DAL.ManagerSalesModel.Product;
 
 namespace DAL.ReposytoryModel
 {
-    public class ProductRepository : GenericDataRepitory<ManagerSalesModel.Product, EntytiModel.Product>
+    public class ProductRepository : GenericDataRepitory<Product, EntytiModel.Product>
     {
-        protected override EntytiModel.Product ObjectToEntity(ManagerSalesModel.Product item)
+        public ProductRepository()
         {
-            return new EntytiModel.Product
-            {
-                Name = item.Name
-            };
+            Mapper.CreateMap<Product, EntytiModel.Product>();
+            Mapper.CreateMap<EntytiModel.Product, Product>();
+
         }
 
-        protected override ManagerSalesModel.Product EntityToObject(EntytiModel.Product item)
+        protected override EntytiModel.Product ObjectToEntity(Product item)
         {
-            return new ManagerSalesModel.Product(item.Name)
-            {
-                Id = item.Id
-            };
+            return Mapper.Map<EntytiModel.Product>(item);
+        }
+
+        protected override Product EntityToObject(EntytiModel.Product item)
+        {
+            return Mapper.Map<Product>(item);
         }
 
         public override Product GetSingle(Product item)

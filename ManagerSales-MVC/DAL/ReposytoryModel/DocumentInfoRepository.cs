@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using AutoMapper;
 using DAL.ManagerSalesModel;
 using DAL.ReposytoryModel.AbstractClasses;
 using EntytiModel;
@@ -11,25 +12,20 @@ namespace DAL.ReposytoryModel
 {
     public class DocumentInfoRepository : GenericDataRepitory<DocumentInfo,EntytiModel.DocumentInfo>
     {
+        public DocumentInfoRepository()
+        {
+            Mapper.CreateMap<DocumentInfo, EntytiModel.DocumentInfo>();
+            Mapper.CreateMap<DocumentInfo, EntytiModel.DocumentInfo>();
+        }
+
         protected override EntytiModel.DocumentInfo ObjectToEntity(DocumentInfo item)
         {
-            return new EntytiModel.DocumentInfo
-            {
-                ManagerId = item.ManagerId,
-                DocumentName = item.DocumentName,
-                Date = item.Date,
-                Status = item.Status
-            };
+            return Mapper.Map<EntytiModel.DocumentInfo>(item);
         }
 
         protected override DocumentInfo EntityToObject(EntytiModel.DocumentInfo item)
         {
-            return new DocumentInfo(item.DocumentName, (DocumentInfoStatus)Enum.Parse(typeof(DocumentInfoStatus), item.Status), item.Date)
-            {
-                ManagerId = item.ManagerId,
-                Manager = new Manager(item.Manager.LastName) {Id = item.ManagerId},
-                Id = item.Id
-            };
+            return Mapper.Map<DocumentInfo>(item);
         }
 
         public override DocumentInfo GetSingle(DocumentInfo item)

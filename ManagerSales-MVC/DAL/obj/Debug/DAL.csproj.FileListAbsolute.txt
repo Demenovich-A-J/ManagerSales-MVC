@@ -26,3 +26,5 @@ D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales-MVC\DAL\bin\Debug\ru\EntityF
 D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales-MVC\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
 D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales-MVC\DAL\obj\Debug\DAL.dll
 D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales-MVC\DAL\obj\Debug\DAL.pdb
+D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales-MVC\DAL\bin\Debug\AutoMapper.dll
+D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales-MVC\DAL\bin\Debug\AutoMapper.xml

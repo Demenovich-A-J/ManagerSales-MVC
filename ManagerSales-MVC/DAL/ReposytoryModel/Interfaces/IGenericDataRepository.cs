@@ -9,10 +9,10 @@ namespace DAL.ReposytoryModel.Interfaces
         IEnumerable<T> GetAll();
         IEnumerable<T> GetList(Func<T, bool> where);
         T GetSingle(Func<T, bool> where);
-        T GetSingle(T item1);
+        T GetSingle(T item);
+        T FindById(int id);
         void Add(T item);
         void Add(IEnumerable<T> item);
-
         void Remove(T item);
         void Update(T item);
     }

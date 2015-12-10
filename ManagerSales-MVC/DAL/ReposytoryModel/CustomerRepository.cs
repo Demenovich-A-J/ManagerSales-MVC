@@ -1,26 +1,27 @@
 ﻿using System.Linq;
+using AutoMapper;
 using DAL.ReposytoryModel.AbstractClasses;
 using EntytiModel;
 using Customer = DAL.ManagerSalesModel.Customer;
 
 namespace DAL.ReposytoryModel
 {
-    public class CustomerRepository : GenericDataRepitory<ManagerSalesModel.Customer, EntytiModel.Customer>
+    public class CustomerRepository : GenericDataRepitory<Customer, EntytiModel.Customer>
     {
-        protected override EntytiModel.Customer ObjectToEntity(ManagerSalesModel.Customer item)
+        public CustomerRepository()
         {
-            return new EntytiModel.Customer()
-            {
-                Name = item.LastName
-            };
+            Mapper.CreateMap<Customer, EntytiModel.Customer>();
+            Mapper.CreateMap<EntytiModel.Customer, Customer>();
+        }
+
+        protected override EntytiModel.Customer ObjectToEntity(Customer item)
+        {
+            return Mapper.Map<EntytiModel.Customer>(item);
         }
 
         protected override ManagerSalesModel.Customer EntityToObject(EntytiModel.Customer item)
         {
-            return new ManagerSalesModel.Customer(item.Name)
-            {
-                Id = item.Id
-            };
+            return Mapper.Map<Customer>(item);
         }
 
         public override Customer GetSingle(Customer item)
@@ -31,7 +32,7 @@ namespace DAL.ReposytoryModel
                 resItem = context
                     .Set<EntytiModel.Customer>()
                     .Select(EntityToObject)
-                    .FirstOrDefault(x => x.LastName == item.LastName);
+                    .FirstOrDefault(x => x.Name == item.Name);
             }
             return resItem;
         }

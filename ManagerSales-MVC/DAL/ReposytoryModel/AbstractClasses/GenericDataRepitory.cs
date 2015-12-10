@@ -54,6 +54,17 @@ namespace DAL.ReposytoryModel.AbstractClasses
         }
 
         public abstract T GetSingle(T item);
+        public T FindById(int id)
+        {
+            T item;
+            using (var context = new ManagerSaleDBEntities())
+            {
+                item = EntityToObject(context
+                    .Set<K>()
+                    .Find(id));
+            }
+            return item;
+        }
 
         public virtual void Add(T item)
         {

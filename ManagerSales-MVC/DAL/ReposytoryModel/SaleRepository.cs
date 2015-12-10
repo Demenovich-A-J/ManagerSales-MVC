@@ -1,40 +1,41 @@
 ﻿using System.Linq;
+using AutoMapper;
 using DAL.ReposytoryModel.AbstractClasses;
 using EntytiModel;
-using Customer = DAL.ManagerSalesModel.Customer;
-using Manager = DAL.ManagerSalesModel.Manager;
-using Product = DAL.ManagerSalesModel.Product;
 using Sale = DAL.ManagerSalesModel.Sale;
+using Manager = DAL.ManagerSalesModel.Manager;
+using Customer = DAL.ManagerSalesModel.Customer;
+using Product = DAL.ManagerSalesModel.Product;
+
+
+
 
 namespace DAL.ReposytoryModel
 {
     public class SaleRepository : GenericDataRepitory<Sale, EntytiModel.Sale>
     {
+        public SaleRepository()
+        {
+            Mapper.CreateMap<Sale, EntytiModel.Sale>();
+            Mapper.CreateMap<EntytiModel.Sale, Sale>();
+
+            Mapper.CreateMap<Manager, EntytiModel.Manager>();
+            Mapper.CreateMap<Customer, EntytiModel.Customer>();
+            Mapper.CreateMap<Product, EntytiModel.Product>();
+            Mapper.CreateMap<EntytiModel.Manager, Manager>();
+            Mapper.CreateMap<EntytiModel.Customer, Customer>();
+            Mapper.CreateMap<EntytiModel.Product, Product>();
+
+        }
+
         protected override EntytiModel.Sale ObjectToEntity(Sale item)
         {
-            return new EntytiModel.Sale
-            {
-                Summ = item.Summ,
-                Date = item.Date,
-                CustomerId = item.CustomerId,
-                ManagerId = item.ManagerId,
-                ProductId = item.ProductId
-            };
+            return Mapper.Map<EntytiModel.Sale>(item);
         }
 
         protected override Sale EntityToObject(EntytiModel.Sale item)
         {
-            return new Sale
-            {
-                Summ = item.Summ,
-                Date = item.Date,
-                CustomerId = item.CustomerId,
-                ManagerId = item.ManagerId,
-                ProductId = item.ProductId,
-                Customer = new Customer(item.Customer.Name),
-                Manager = new Manager(item.Manager.LastName),
-                Product = new Product(item.Product.Name)
-            };
+            return Mapper.Map<EntytiModel.Sale, Sale>(item);
         }
 
         public override Sale GetSingle(Sale item)

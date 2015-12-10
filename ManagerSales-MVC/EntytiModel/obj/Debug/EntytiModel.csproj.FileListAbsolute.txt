@@ -15,4 +15,3 @@ D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales-MVC\EntytiModel\bin\Debug\En
 D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales-MVC\EntytiModel\bin\Debug\EntytiModel.pdb
 D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales-MVC\EntytiModel\obj\Debug\EntytiModel.dll
 D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales-MVC\EntytiModel\obj\Debug\EntytiModel.pdb
-D:\SourceTreeProjects\ManagerSales-MVC\ManagerSales-MVC\EntytiModel\obj\Debug\EntytiModel.csprojResolveAssemblyReference.cache
