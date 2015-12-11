@@ -7,15 +7,81 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Scripts.Render("~/bundles/jquery")
-    @Styles.Render("~/Content/css")
     <link href="~/Content/styles.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="col-md-8">
-        @RenderBody()
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-login">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <a href="#" class="active" id="login-form-link">Login</a>
+                            </div>
+                            <div class="col-xs-6">
+                                <a href="#" id="register-form-link">Register</a>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div id="reg" class="col-lg-12">
+                                @RenderBody()
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    url: '@Url.Action("Register","Account")',
+                    type: 'GET',
+                    dataType: 'html',
+                    success: function (result) {
+                        console.log(result);
+                        $("#reg").append(result);
+                    }
+                });
+                $.ajax({
+                    url: '@Url.Action("Login","Account")',
+                    type: 'GET',
+                    dataType: 'html',
+                    success: function (result) {
+                        console.log(result);
+                        $("#reg").append(result);
+                    }
+                });
+            });
+
+            $(function () {
+
+                $('#login-form-link').click(function (e) {
+                    $("#login-form").delay(100).fadeIn(100);
+                    $("#register-form").fadeOut(100);
+                    $('#register-form-link').removeClass('active');
+                    $(this).addClass('active');
+                    e.preventDefault();
+                });
+                $('#register-form-link').click(function (e) {
+                    $("#register-form").delay(100).fadeIn(100);
+                    $("#login-form").fadeOut(100);
+                    $('#login-form-link').removeClass('active');
+                    $(this).addClass('active');
+                    e.preventDefault();
+                });
+
+            });
+        </script>
     </div>
 </body>
 </html>

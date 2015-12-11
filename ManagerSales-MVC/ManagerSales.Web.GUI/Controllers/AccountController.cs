@@ -1,15 +1,19 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using ManagerSales.Web.GUI.Models;
+using Microsoft.Owin.Security;
 
 namespace ManagerSales.Web.GUI.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public AccountController()
@@ -20,6 +24,18 @@ namespace ManagerSales.Web.GUI.Controllers
         {
             UserManager = userManager;
             SignInManager = signInManager;
+        }
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
         }
 
         public ApplicationUserManager UserManager
@@ -34,27 +50,25 @@ namespace ManagerSales.Web.GUI.Controllers
             }
         }
 
+        [AllowAnonymous]
+        public ActionResult LogReg()
+        {
+            return View();
+        }
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login()
         {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
+            return PartialView("Partial/Login");
         }
 
-        private ApplicationSignInManager _signInManager;
-
-        public ApplicationSignInManager SignInManager
+        [AllowAnonymous]
+        public ActionResult Register()
         {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set { _signInManager = value; }
+            return PartialView("Partial/Register");
         }
 
-        //
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
@@ -63,24 +77,20 @@ namespace ManagerSales.Web.GUI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("LogReg");
             }
 
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            if (result == SignInStatus.Success)
+            var result = await SignInManager.PasswordSignInAsync(model.Login, model.Password, false, shouldLockout: false);
+            switch (result)
             {
-                return RedirectToAction("Index", "Home");
+                case SignInStatus.Success:
+                    return RedirectToAction("Index","Home");
+                case SignInStatus.LockedOut:
+                    return View("LogReg");
+                default:
+                    ModelState.AddModelError("", "Неудачная попытка входа.");
+                    return View("LogReg");
             }
-            ModelState.AddModelError("", "Неправильный логин или пароль");
-            return View(model);
-        }
-
-        //
-        // GET: /Account/Register
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
         }
 
         //
@@ -90,26 +100,50 @@ namespace ManagerSales.Web.GUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    UserManager.AddToRole(user.Id, "User");
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    return RedirectToAction("Index", "Home");
-                }
-            }
-            return View(model);
+            if (!ModelState.IsValid) return View("LogReg");
+
+            var user = new ApplicationUser { UserName = model.Login };
+            var result = await UserManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded) return View("LogReg");
+
+            UserManager.AddToRole(user.Id, "User");
+
+            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+            return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet]
+        //
+        // POST: /Account/LogOff
+        [HttpPost]
         [Authorize]
-        public ActionResult LogOut()
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
         {
-            _signInManager.AuthenticationManager.SignOut();
-            return RedirectToAction("Login", "Account");
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "Home");
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_userManager != null)
+                {
+                    _userManager.Dispose();
+                    _userManager = null;
+                }
+
+                if (_signInManager != null)
+                {
+                    _signInManager.Dispose();
+                    _signInManager = null;
+                }
+            }
+
+            base.Dispose(disposing);
+        }
+        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
+
     }
 }

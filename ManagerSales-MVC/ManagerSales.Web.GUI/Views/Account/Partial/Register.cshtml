@@ -1,0 +1,30 @@
+﻿@model ManagerSales.Web.GUI.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Регистрация";
+}
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { id = "register-form", @class = "form-signin", role = "form" , @style = "display: none;" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.TextBoxFor(m => m.Login, new { @class = "form-control", @placeholder = "Login" })
+    </div>
+    <div class="form-group">
+        @Html.TextBoxFor(m => m.Login, new { @class = "form-control", @placeholder = "Email Address" })
+    </div>
+    <div class="form-group">
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+    </div>
+    <div class="form-group">
+        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirm Password" })
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+            </div>
+        </div>
+    </div>
+}
+
+@Scripts.Render("~/bundles/jqueryval")
