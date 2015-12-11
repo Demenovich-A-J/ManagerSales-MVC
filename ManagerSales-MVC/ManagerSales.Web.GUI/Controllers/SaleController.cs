@@ -8,13 +8,13 @@ using ManagerSales.BL.ModelsHandlers.Intarfaces;
 
 namespace ManagerSales.Web.GUI.Controllers
 {
-    public class HomeController : Controller
+    public class SaleController : Controller
     {
         public ActionResult Index()
         {
             IModelHandler<Sale> h = new SaleModelHandler();
             var d = h.GetList(x => true);
-            Mapper.CreateMap<Sale,Models.Sale>()
+            Mapper.CreateMap<Sale, Models.Sale>()
                 .ForMember(
                 dest => dest.CustomerName,
                 opt => opt.MapFrom(src => src.Customer.Name)
@@ -27,9 +27,9 @@ namespace ManagerSales.Web.GUI.Controllers
                 dest => dest.ProductName,
                 opt => opt.MapFrom(src => src.Product.Name)
                 );
-            ICollection < Models.Sale> s = d.Select(Mapper.Map<Sale, Models.Sale>).ToList();
+            ICollection<Models.Sale> s = d.Select(Mapper.Map<Sale, Models.Sale>).ToList();
 
-            return View(s);
+            return View("SalesGrid/SaleGrid",s);
         }
     }
 }

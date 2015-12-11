@@ -22,3 +22,8 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.btn-group {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

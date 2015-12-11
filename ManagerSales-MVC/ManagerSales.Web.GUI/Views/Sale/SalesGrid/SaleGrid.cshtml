@@ -1,0 +1,15 @@
+﻿@model IEnumerable<ManagerSales.Web.GUI.Models.Sale>
+@{
+    Layout = null;
+}
+@using GridMvc.Html
+
+@Html.Grid(Model).Named("grid").Columns(columns =>
+    {
+        columns.Add(c => c.Id).Titled("Id").Filterable(true);
+        columns.Add(c => c.Date).Titled("Date").Filterable(true);
+        columns.Add(c => c.ManagerName).Titled("Manager").Filterable(true);
+        columns.Add(c => c.CustomerName).Titled("Customer").Filterable(true);
+        columns.Add(c => c.ProductName).Titled("Product").Filterable(true);
+        columns.Add(c => c.Summ).Titled("Summ").Filterable(true);
+    }).Sortable(true).WithPaging(10)

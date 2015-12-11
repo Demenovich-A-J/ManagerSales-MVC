@@ -1,6 +1,8 @@
 ﻿@using ManagerSales.Web.GUI.Models
 @model LoginViewModel
 @{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
     ViewBag.Title = "Выполнить вход";
 }
 
@@ -53,11 +55,8 @@
     </div>
     <div class="col-md-4">
         <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
         </section>
     </div>
 </div>
 
-@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
