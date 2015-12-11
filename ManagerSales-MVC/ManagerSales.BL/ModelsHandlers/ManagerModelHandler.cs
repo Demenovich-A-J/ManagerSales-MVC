@@ -1,22 +1,30 @@
 ﻿using AutoMapper;
+using DAL.ManagerSalesModel;
 using DAL.ReposytoryModel;
 using DAL.ReposytoryModel.Interfaces;
-using ManagerSales.BL.Models;
 using ManagerSales.BL.ModelsHandlers.AbstractClasses;
 
 namespace ManagerSales.BL.ModelsHandlers
 {
-    public class ManagerModelHandler : ModelHandler<Manager,DAL.ManagerSalesModel.Manager>
+    public class ManagerModelHandler : ModelHandler<Models.Manager, Manager>
     {
-        protected override IGenericDataRepository<DAL.ManagerSalesModel.Manager> Repository { get; } = new ManagerRepository();
-        protected override Manager DalToBlModel(DAL.ManagerSalesModel.Manager item)
+        protected override IGenericDataRepository<Manager> Repository { get; } = new ManagerRepository();
+
+        public ManagerModelHandler()
         {
-            return Mapper.Map<Manager>(item);
+            Mapper.CreateMap<Models.Manager, Manager>();
+            Mapper.CreateMap<Manager, Models.Manager>();
         }
 
-        protected override DAL.ManagerSalesModel.Manager BlToDalModel(Manager item)
+        protected override Models.Manager DalToBlModel(Manager item)
         {
-            return Mapper.Map<DAL.ManagerSalesModel.Manager>(item);
+            return Mapper.Map<Manager, Models.Manager>(item);
+        }
+
+        protected override Manager BlToDalModel(Models.Manager item)
+        {
+            return Mapper.Map<Models.Manager, Manager>(item);
+
         }
     }
 }

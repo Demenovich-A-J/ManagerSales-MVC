@@ -45,7 +45,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelsHandlers\AbstractClasses\ModelHandler.cs" />
+    <Compile Include="ModelsHandlers\CustomerModelHandler.cs" />
     <Compile Include="ModelsHandlers\Intarfaces\IModelHandler.cs" />
+    <Compile Include="ModelsHandlers\ManagerModelHandler.cs" />
+    <Compile Include="ModelsHandlers\ProductModelHandler.cs" />
     <Compile Include="ModelsHandlers\SaleModelHandler.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DocumentInfo.cs" />
