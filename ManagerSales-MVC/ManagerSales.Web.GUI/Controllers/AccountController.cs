@@ -50,29 +50,31 @@ namespace ManagerSales.Web.GUI.Controllers
             }
         }
 
+        [HttpGet]
         [AllowAnonymous]
         public ActionResult LogReg()
         {
             return View();
         }
-        //
-        // GET: /Account/Login
+
+        [HttpGet]
         [AllowAnonymous]
         public ActionResult Login()
         {
             return PartialView("Partial/Login");
         }
 
+        [HttpGet]
         [AllowAnonymous]
         public ActionResult Register()
         {
             return PartialView("Partial/Register");
         }
 
+        //
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
