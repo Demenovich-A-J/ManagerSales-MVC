@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ManagerSales.Web.GUI.Models.ManagerSalesModels.Customer>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using GridMvc.Html
+
+<h1>Заказчики</h1>
+
+<div id="table">
+
+    @Html.Grid(Model).Named("grid").Columns(columns =>
+    {
+        columns.Add(c => c.Name).Titled("Name").Filterable(true);
+
+    }).Sortable(true).WithPaging(10)
+</div>
+<script>
+    $(document).ready(function () {
+        $("#refresh").click(function () {
+            $.ajax({
+                url: '@Url.Action("CustomerGrid","ManagerSales")',
+                type: 'Get',
+                success: function (response) {
+                    $("#table").replaceWith(response);
+                },
+                async: true,
+                processData: false
+            });
+        });
+    });
+</script>

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ManagerSales.Web.GUI.Models.ManagerSalesModels.Product>
+@{
+    ViewBag.Title = "Product Grid";
+}
+@using GridMvc.Html
+
+<h1>Продукты</h1>
+<button id="add" type="button" class="btn btn-default">
+    <span class="glyphicon glyphicon-plus"></span><a href="@Url.Action("AddProduct","Admin")">Добавить</a>
+</button>
+<div id="table">
+
+    @Html.Grid(Model).Named("grid").Columns(columns =>
+    {
+        columns.Add(c => c.Name).Titled("Name").Filterable(true);
+
+    }).Sortable(true).WithPaging(10)
+</div>
+<script>
+    $(document).ready(function () {
+        $("#refresh").click(function () {
+            $.ajax({
+                url: '@Url.Action("ProductGrid","ManagerSales")',
+                type: 'Get',
+                success: function (response) {
+                    $("#table").replaceWith(response);
+                },
+                async: true,
+                processData: false
+            });
+        });
+    });
+</script>

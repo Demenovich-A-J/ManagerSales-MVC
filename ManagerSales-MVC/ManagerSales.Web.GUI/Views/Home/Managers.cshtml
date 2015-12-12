@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ManagerSales.Web.GUI.Models.ManagerSalesModels.Manager>
+
+@{
+    ViewBag.Title = "Manager Grid";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using GridMvc.Html
+
+<h1>Менеджеры</h1>
+
+<div id="table">
+
+    @Html.Grid(Model).Named("grid").Columns(columns =>
+    {
+        columns.Add(c => c.LastName).Titled("Name").Filterable(true);
+
+    }).Sortable(true).WithPaging(10)
+</div>
+<script>
+    $(document).ready(function () {
+        $("#refresh").click(function () {
+            $.ajax({
+                url: '@Url.Action("ManagerGrid","ManagerSales")',
+                type: 'Get',
+                success: function (response) {
+                    $("#table").replaceWith(response);
+                },
+                async: true,
+                processData: false
+            });
+        });
+    });
+</script>

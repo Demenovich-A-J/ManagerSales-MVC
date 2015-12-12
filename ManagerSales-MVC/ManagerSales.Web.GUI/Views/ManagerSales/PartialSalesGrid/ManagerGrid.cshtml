@@ -1,0 +1,10 @@
+﻿@model IEnumerable<ManagerSales.Web.GUI.Models.ManagerSalesModels.Manager>
+@{
+    Layout = null;
+}
+@using GridMvc.Html
+
+@Html.Grid(Model).Named("grid").Columns(columns =>
+    {
+        columns.Add(c => c.LastName).Titled("Name").Filterable(true);
+    }).Sortable(true).WithPaging(10)

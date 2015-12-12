@@ -1,18 +1,9 @@
-﻿@model IEnumerable<ManagerSales.Web.GUI.Models.Sale>
+﻿@model IEnumerable<ManagerSales.Web.GUI.Models.ManagerSalesModels.Sale>
 @{
     ViewBag.Title = "Home Page";
 }
 @using GridMvc.Html
-@using ManagerSales.Web.GUI.Models
-
-<div class="btn-group">
-    <button type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-plus"></span> Добавить
-    </button>
-    <button id="refresh" type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-refresh"></span> Обновить
-    </button>
-</div>
+@using ManagerSales.Web.GUI.Models.ManagerSalesModels
 
 <h1>Продажи</h1>
 <div id="table">

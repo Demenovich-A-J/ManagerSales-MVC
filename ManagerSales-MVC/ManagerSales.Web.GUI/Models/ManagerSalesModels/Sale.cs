@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ManagerSales.Web.GUI.Models
+namespace ManagerSales.Web.GUI.Models.ManagerSalesModels
 {
     public class Sale
     {
