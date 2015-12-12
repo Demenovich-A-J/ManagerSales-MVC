@@ -1,55 +1,45 @@
-﻿@model ManagerSales.Web.GUI.Models.ManagerSalesModels.Sale
+﻿@model ManagerSales.Web.GUI.Models.ManagerSalesModels.ExSale
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("Edit", "ManagerSales", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {id = "login-form", @class = "form-horizontal", role = "form"}))
+@using (Html.BeginForm("EditSale", "Admin", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {id = "login-form", @class = "form-horizontal", role = "form"}))
 {
-        <h2>Horizontal form</h2>
+        <h2>Edit sale</h2>
         <div class="form-group">
-            @Html.LabelFor(m => m.CustomerName, new { @class = "sr-only" })
-            <label class="control-label col-sm-2" for="email">Email:</label>
+            @Html.LabelFor(m => m.Customer.Name, new { @class = "sr-only" })
             <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.CustomerName, new {@id = "login", @class = "form-control", @placeholder = "Login"})
-                @Html.ValidationMessageFor(m => m.CustomerName, "", new {@class = "text-danger"})
-                <input type="email" class="form-control" id="email" placeholder="Enter email">
+                @Html.DropDownListFor(m => m.Customer.Id, (IEnumerable<SelectListItem>)ViewBag.Customers, new { @id = "customer", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Customer.Name, "", new {@class = "text-danger"})
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.ManagerName, new { @class = "sr-only" })
-            <label class="control-label col-sm-2" for="email">Email:</label>
+            @Html.LabelFor(m => m.Manager.LastName, new { @class = "sr-only" })
             <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.ManagerName, new { @id = "login", @class = "form-control", @placeholder = "Login" })
-                @Html.ValidationMessageFor(m => m.ManagerName, "", new { @class = "text-danger" })
-                <input type="email" class="form-control" id="email" placeholder="Enter email">
+                @Html.DropDownListFor(m => m.Manager.Id,(IEnumerable<SelectListItem>)ViewBag.Managers, new { @id = "manager", @class = "form-control"})
+                @Html.ValidationMessageFor(m => m.Manager.LastName, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.ProductName, new {@class = "sr-only"})
-            <label class="control-label col-sm-2" for="email">Email:</label>
+            @Html.LabelFor(m => m.Product.Name, new { @class = "sr-only" })
             <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.ProductName, new {@id = "login", @class = "form-control", @placeholder = "Login"})
-                @Html.ValidationMessageFor(m => m.ProductName, "", new {@class = "text-danger"})
-                <input type="email" class="form-control" id="email" placeholder="Enter email">
+                @Html.DropDownListFor(m => m.Product.Id, (IEnumerable<SelectListItem>)ViewBag.Products, new { @id = "manager", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Product.Name, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Summ, new {@class = "sr-only"})
-            <label class="control-label col-sm-2" for="email">Email:</label>
             <div class="col-sm-10">
                 @Html.TextBoxFor(m => m.Summ, new {@id = "login", @class = "form-control", @placeholder = "Login"})
                 @Html.ValidationMessageFor(m => m.Summ, "", new {@class = "text-danger"})
-                <input type="email" class="form-control" id="email" placeholder="Enter email">
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Date, new { @class = "sr-only" })
-            <label class="control-label col-sm-2" for="email">Email:</label>
             <div class="col-sm-10">
-                @Html.EditorFor(m => m.Date, new { @id = "login", @class = "form-control", @placeholder = "Login" })
+                @Html.TextBoxFor(m => m.Date, new { @Value = Model.Date, @id = "datepicker", @class = "form-control", @placeholder = "Login" })
                 @Html.ValidationMessageFor(m => m.Date, "", new { @class = "text-danger" })
-                <input type="email" class="form-control" id="email" placeholder="Enter email">
             </div>
         </div>
         <div class="form-group">
@@ -58,3 +48,15 @@
             </div>
         </div>
 }
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="~/Scripts/timepicker.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $("#datepicker").datetimepicker({
+            timeFormat: 'HH:mm:ss'
+        });
+    });
+</script>

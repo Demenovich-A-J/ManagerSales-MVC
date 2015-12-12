@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -25,9 +26,9 @@ namespace ManagerSales.Web.GUI.Controllers
             Mapper.CreateMap<Customer, Models.ManagerSalesModels.Customer>();
             Mapper.CreateMap<Product, Models.ManagerSalesModels.Product>();
             Mapper.CreateMap<Manager, Models.ManagerSalesModels.Manager>();
+            Mapper.CreateMap<Sale, Models.ManagerSalesModels.ExSale>();
 
             Mapper.CreateMap<Models.ManagerSalesModels.Product, Product>();
-
 
 
             Mapper.CreateMap<Sale, Models.ManagerSalesModels.Sale>()
@@ -178,12 +179,34 @@ namespace ManagerSales.Web.GUI.Controllers
 
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "User")]
         public ActionResult EditSale(string id)
         {
             int value;
             int.TryParse(id, out value);
-            return View("Edit/EditProduct", Mapper.Map<Product, Models.ManagerSalesModels.Product>(_productHandler.GetItemById(value)));
+            var products = Mapper.Map < IEnumerable<Product>, IEnumerable<Models.ManagerSalesModels.Product>> (_productHandler.GetList(x => true)).Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Name
+            });
+            var customers = Mapper.Map < IEnumerable<Customer>, IEnumerable< Models.ManagerSalesModels.Customer >>( _customerHandler.GetList(x => true)).Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Name
+            });
+            var managers = Mapper.Map < IEnumerable<Manager>, IEnumerable< Models.ManagerSalesModels.Manager>> (_managerHandler.GetList(x => true)).Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.LastName
+            });
+
+            ViewBag.Products = products;
+            ViewBag.Customers = customers;
+            ViewBag.Managers = managers;
+
+
+
+            return View("Edit/EditSale", Mapper.Map<Sale, Models.ManagerSalesModels.ExSale>(_saleHandler.GetItemById(value)));
         }
 
         [HttpGet]
