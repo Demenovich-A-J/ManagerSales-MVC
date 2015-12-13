@@ -27,19 +27,7 @@ namespace ManagerSales.Web.GUI.Controllers
             Mapper.CreateMap<Manager, Models.ManagerSalesModels.Manager>();
 
 
-            Mapper.CreateMap<Sale, Models.ManagerSalesModels.Sale>()
-                .ForMember(
-                dest => dest.CustomerName,
-                opt => opt.MapFrom(src => src.Customer.Name)
-                )
-                .ForMember(
-                dest => dest.ManagerName,
-                opt => opt.MapFrom(src => src.Manager.LastName)
-                )
-                .ForMember(
-                dest => dest.ProductName,
-                opt => opt.MapFrom(src => src.Product.Name)
-                );
+            Mapper.CreateMap<Sale, Models.ManagerSalesModels.Sale>();
         }
 
         [HttpGet]

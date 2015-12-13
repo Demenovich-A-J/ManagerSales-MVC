@@ -57,3 +57,26 @@ textarea {
 .ui-timepicker-div.ui-timepicker-oneLine dl dd.ui_tpicker_microsec:before { content:'.'; display:inline-block; }
 .ui-timepicker-div.ui-timepicker-oneLine .ui_tpicker_unit_hide,
 .ui-timepicker-div.ui-timepicker-oneLine .ui_tpicker_unit_hide:before{ display: none; }
+
+input.error {
+        border-color: #a94442!important;
+    -webkit-box-shadow: inset 0 1px 1px #000000!important;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075)!important;
+    -ms-box-shadow: inset 0 1px 1px #000000!important;
+    -ms-box-shadow: inset 0 1px 1px rgba(0,0,0,.075)!important;
+    box-shadow: inset 0 1px 1px #000000!important;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075)!important;
+}
+.error {
+    color: red;
+}
+
+input.valid {
+    border-color: #3c763d!important;
+    -webkit-box-shadow: inset 0 1px 1px #000000!important;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075)!important;
+    -ms-box-shadow: inset 0 1px 1px #000000!important;
+    -ms-box-shadow: inset 0 1px 1px rgba(0,0,0,.075)!important;
+    box-shadow: inset 0 1px 1px #000000!important;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075)!important;
+}

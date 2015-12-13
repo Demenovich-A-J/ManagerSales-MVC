@@ -7,6 +7,9 @@
 
 <h2>Add User</h2>
 
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<script src="~/Scripts/validate.config.js"></script>
 
 @{
     Html.RenderAction("Register", "Account");
@@ -17,7 +20,5 @@
 <script>
     $(document).ready(function () {
         document.getElementById("register-form").style.display = "block";
-        $('#register-form-link').removeClass('active');
-
     });
 </script>

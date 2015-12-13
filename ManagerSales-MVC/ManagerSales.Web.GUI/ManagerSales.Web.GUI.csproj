@@ -187,7 +187,6 @@
     <Compile Include="Models\ManagerSalesModels\Customer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
-    <Compile Include="Models\ManagerSalesModels\ExSale.cs" />
     <Compile Include="Models\ManagerSalesModels\Manager.cs" />
     <Compile Include="Models\ManagerSalesModels\Product.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
@@ -234,6 +233,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\timepicker.js" />
+    <Content Include="Scripts\validate.config.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -272,6 +272,7 @@
     <Content Include="Views\Admin\Edit\EditProduct.cshtml" />
     <Content Include="Views\Admin\Add\AddSale.cshtml" />
     <Content Include="Views\Home\Users.cshtml" />
+    <Content Include="Views\Home\Grafics\SalesGrafic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

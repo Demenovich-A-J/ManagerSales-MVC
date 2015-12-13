@@ -17,7 +17,15 @@ namespace DAL.ReposytoryModel
         public SaleRepository()
         {
             Mapper.CreateMap<Sale, EntytiModel.Sale>();
+            Mapper.CreateMap<Sale, EntytiModel.Sale>()
+               .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.Customer.Id))
+               .ForMember(dest => dest.ManagerId, opt => opt.MapFrom(src => src.Manager.Id))
+               .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.Product.Id))
+               .ForMember(dest => dest.Customer, opt => opt.Ignore())
+               .ForMember(dest => dest.Product, opt => opt.Ignore())
+               .ForMember(dest => dest.Manager, opt => opt.Ignore());
             Mapper.CreateMap<EntytiModel.Sale, Sale>();
+
 
             Mapper.CreateMap<Manager, EntytiModel.Manager>();
             Mapper.CreateMap<Customer, EntytiModel.Customer>();

@@ -6,22 +6,22 @@
 @if (User.IsInRole("Admin"))
 {
     <button id="add" type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-plus"></span><a href="@Url.Action("AddSale","Admin")">Добавить</a>
+        <span class="glyphicon glyphicon-plus"></span><a href="@Url.Action("AddSale","Admin")">Add</a>
     </button>
     @helper CustomRenderingOfColumn(ManagerSales.Web.GUI.Models.ManagerSalesModels.Sale order)
     {
         <div class="btn-group" style="margin: 0;">
-            <a class="btn btn-default" href="/Admin/EditSale?id=@order.Id">Редактировать</a>
-            <a class="btn btn-default" href="/Admin/RemoveSale?id=@order.Id">Удалить</a>
+            <a class="btn btn-default" href="/Admin/EditSale?id=@order.Id">Edit</a>
+            <a class="btn btn-default" href="/Admin/RemoveSale?id=@order.Id">Delete</a>
         </div>
     }
 
     @Html.Grid(Model).Named("grid").Columns(columns =>
     {
         columns.Add(c => c.Date).Titled("Date").Filterable(true);
-        columns.Add(c => c.ManagerName).Titled("Manager").Filterable(true);
-        columns.Add(c => c.CustomerName).Titled("customer").Filterable(true);
-        columns.Add(c => c.ProductName).Titled("Product").Filterable(true);
+        columns.Add(c => c.Manager.LastName).Titled("Manager").Filterable(true);
+        columns.Add(c => c.Customer.Name).Titled("customer").Filterable(true);
+        columns.Add(c => c.Product.Name).Titled("Product").Filterable(true);
         columns.Add(c => c.Summ).Titled("Summ").Filterable(true);
         columns.Add()
             .Titled("Action")
@@ -36,9 +36,9 @@ else
     {
         columns.Add(c => c.Id).Titled("Id").Filterable(true);
         columns.Add(c => c.Date).Titled("Date").Filterable(true);
-        columns.Add(c => c.ManagerName).Titled("Manager").Filterable(true);
-        columns.Add(c => c.CustomerName).Titled("customer").Filterable(true);
-        columns.Add(c => c.ProductName).Titled("Product").Filterable(true);
+        columns.Add(c => c.Manager.LastName).Titled("Manager").Filterable(true);
+        columns.Add(c => c.Customer.Name).Titled("customer").Filterable(true);
+        columns.Add(c => c.Product.Name).Titled("Product").Filterable(true);
         columns.Add(c => c.Summ).Titled("Summ").Filterable(true);
     }).Sortable(true).WithPaging(10)
 }

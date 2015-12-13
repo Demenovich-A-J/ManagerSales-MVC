@@ -7,10 +7,10 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            <a href="#">Здравствуйте, @User.Identity.GetUserName() !</a>
+            <a href="#">Hello, @User.Identity.GetUserName()!</a>
         </li>
         <li>
-            <a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-in"></span>  Выйти</a>
+            <a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-in"></span>  Exit</a>
         </li>
     </ul>
     }
@@ -19,10 +19,10 @@ else
 {
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Регистрация", "LogReg", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+            @Html.ActionLink("Sign in", "LogReg", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
         </li>
         <li>
-            @Html.ActionLink("Выполнить вход", "LogReg", "Account", null, htmlAttributes: new {id = "loginLink"})
+            @Html.ActionLink("Sign up", "LogReg", "Account", null, htmlAttributes: new {id = "loginLink"})
         </li>
     </ul>
 }

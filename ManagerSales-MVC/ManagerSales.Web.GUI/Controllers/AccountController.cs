@@ -75,6 +75,7 @@ namespace ManagerSales.Web.GUI.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
@@ -104,7 +105,7 @@ namespace ManagerSales.Web.GUI.Controllers
         {
             if (!ModelState.IsValid) return View("LogReg");
 
-            var user = new ApplicationUser { UserName = model.Login };
+            var user = new ApplicationUser { UserName = model.Login, Email = model.Login};
             var result = await UserManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded) return View("LogReg");

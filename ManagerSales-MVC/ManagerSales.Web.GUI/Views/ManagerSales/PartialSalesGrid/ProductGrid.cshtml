@@ -8,13 +8,13 @@
 @if (User.IsInRole("Admin"))
 {
     <button id="add" type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-plus"></span><a href="@Url.Action("AddProduct","Admin")">Добавить</a>
+        <span class="glyphicon glyphicon-plus"></span><a href="@Url.Action("AddProduct","Admin")">Add</a>
     </button>
     @helper CustomRenderingOfColumn(ManagerSales.Web.GUI.Models.ManagerSalesModels.Product product)
     {
         <div class="btn-group" style="margin: 0;">
-            <a class="btn btn-default" href="/Admin/EditManager?id=@product.Id">Редактировать</a>
-            <a class="btn btn-default" href="/Admin/RemoveManager?id=@product.Id">Удалить</a>
+            <a class="btn btn-default" href="/Admin/EditManager?id=@product.Id">Edit</a>
+            <a class="btn btn-default" href="/Admin/RemoveManager?id=@product.Id">Delete</a>
         </div>
 }
 

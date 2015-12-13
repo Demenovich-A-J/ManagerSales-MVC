@@ -1,33 +1,37 @@
-﻿@model ManagerSales.Web.GUI.Models.ManagerSalesModels.ExSale
+﻿@model ManagerSales.Web.GUI.Models.ManagerSalesModels.Sale
 
 @{
     ViewBag.Title = "Edit sale";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<script src="~/Scripts/validate.config.js"></script>
 
-@using (Html.BeginForm("EditSale", "Admin", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {id = "login-form", @class = "form-horizontal", role = "form"}))
+@using (Html.BeginForm("EditSale", "Admin", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new { id = "sale-form", @class = "form-horizontal", role = "form"}))
 {
         <h2>Edit sale</h2>
+        @Html.HiddenFor(m => m.Id, new { @class = "sr-only" })
         <div class="form-group">
-            @Html.LabelFor(m => m.Customer.Name, new { @class = "sr-only" })
+            @Html.LabelFor(m => m.Customer.Id, new { @class = "sr-only" })
             <div class="col-sm-10">
                 @Html.DropDownListFor(m => m.Customer.Id, (IEnumerable<SelectListItem>)ViewBag.Customers, new { @id = "customer", @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Customer.Name, "", new {@class = "text-danger"})
+                @Html.ValidationMessageFor(m => m.Customer.Id, "", new {@class = "text-danger"})
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.Manager.LastName, new { @class = "sr-only" })
+            @Html.LabelFor(m => m.Manager.Id, new { @class = "sr-only" })
             <div class="col-sm-10">
                 @Html.DropDownListFor(m => m.Manager.Id,(IEnumerable<SelectListItem>)ViewBag.Managers, new { @id = "manager", @class = "form-control"})
-                @Html.ValidationMessageFor(m => m.Manager.LastName, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(m => m.Manager.Id, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.Product.Name, new { @class = "sr-only" })
+            @Html.LabelFor(m => m.Product.Id, new { @class = "sr-only" })
             <div class="col-sm-10">
                 @Html.DropDownListFor(m => m.Product.Id, (IEnumerable<SelectListItem>)ViewBag.Products, new { @id = "manager", @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Product.Name, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(m => m.Product.Id, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
@@ -40,7 +44,7 @@
         <div class="form-group">
             @Html.LabelFor(m => m.Date, new { @class = "sr-only" })
             <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.Date, new { @Value = Model.Date, @id = "datepicker", @class = "form-control", @placeholder = "Login" })
+                @Html.TextBoxFor(m => m.Date, new { @value = Model.Date, @class = "form-control", @placeholder = "Login", type = "date" })
                 @Html.ValidationMessageFor(m => m.Date, "", new { @class = "text-danger" })
             </div>
         </div>

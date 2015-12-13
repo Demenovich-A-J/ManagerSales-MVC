@@ -2,6 +2,7 @@
 
 @{
     Layout = null;
+    
 }
 @using Microsoft.AspNet.Identity
 @using GridMvc.Html
@@ -13,11 +14,14 @@
     </button>
     @helper CustomRenderingOfColumn(ManagerSales.Web.GUI.Models.ApplicationUser user)
     {
+        if (user.Id == User.Identity.GetUserId())
+        {
+            return;
+        }
         <div class="btn-group" style="margin: 0;">
-            <a style="color: #000!important;" class="btn btn-default" href="/Admin/EditUser?id=@user.Id">Редактировать</a>
-            <a style="color: #000!important;" class="btn btn-default" href="/Admin/RemoveUser?id=@user.Id">Удалить</a>
+            <a style="color: #000 !important;" class="btn btn-default" href="/Admin/RemoveUser?id=@user.Id">Удалить</a>
         </div>
-}
+    }
     @helper UserRolesRender(ManagerSales.Web.GUI.Models.ApplicationUser user)
     {
         <ul class="list-group">

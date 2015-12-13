@@ -38,7 +38,7 @@ namespace ManagerSales.BL.ModelsHandlers.AbstractClasses
 
         public void Update(T item)
         {
-            Repository.Remove(BlToDalModel(item));
+            Repository.Update(BlToDalModel(item));
         }
 
 

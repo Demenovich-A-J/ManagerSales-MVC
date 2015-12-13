@@ -7,20 +7,20 @@
 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "login-form", @class = "form-signin", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.ValidationSummary("", new { @class = "text-danger" })
 
 
     <div class="form-group">
 
         @Html.LabelFor(m => m.Login, new { @class = "sr-only" })
-        @Html.TextBoxFor(m => m.Login, new { @id = "login", @class = "form-control", @placeholder = "Login" })
+        @Html.TextBoxFor(m => m.Login, new { @name = "login", @id = "login", @class = "form-control", @placeholder = "login" })
         @Html.ValidationMessageFor(m => m.Login, "", new { @class = "text-danger" })
 
 
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Password, new { @class = "sr-only" })
-        @Html.PasswordFor(m => m.Password, new { @id = "password", @class = "form-control", @placeholder = "Password" })
+        @Html.PasswordFor(m => m.Password, new {@name = "password" ,@id = "password", @class = "form-control", @placeholder = "password" })
         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
     </div>
     <div class="form-group">
@@ -31,3 +31,5 @@
         </div>
     </div>
 }
+
+@Scripts.Render("~/bundles/jqueryval")

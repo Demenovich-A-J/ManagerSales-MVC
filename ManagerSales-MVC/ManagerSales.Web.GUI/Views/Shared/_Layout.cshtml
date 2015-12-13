@@ -23,13 +23,13 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Главная", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Менеджеры", "Managers", "Home")</li>
-                    <li>@Html.ActionLink("Заказчики", "Customers", "Home")</li>
-                    <li>@Html.ActionLink("Продукция", "Products", "Home")</li>
+                    <li>@Html.ActionLink("Main", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Managers", "Managers", "Home")</li>
+                    <li>@Html.ActionLink("Customers", "Customers", "Home")</li>
+                    <li>@Html.ActionLink("Products", "Products", "Home")</li>
                     @if (User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("Пользователи", "Users", "Home")</li>
+                        <li>@Html.ActionLink("Users", "Users", "Home")</li>
                     }
                 </ul>
                 
@@ -41,7 +41,7 @@
     <div class="btn-group">
         
         <button id="refresh" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-refresh"></span> Обновить
+            <span class="glyphicon glyphicon-refresh"></span> Refresh
         </button>
     </div>
     @RenderBody()

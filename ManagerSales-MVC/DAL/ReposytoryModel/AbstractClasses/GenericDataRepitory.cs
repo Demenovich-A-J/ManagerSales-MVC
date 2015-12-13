@@ -91,7 +91,7 @@ namespace DAL.ReposytoryModel.AbstractClasses
         {
             using (var context = new ManagerSaleDBEntities())
             {
-                context.Entry(item).State = EntityState.Deleted;
+                context.Entry(ObjectToEntity(item)).State = EntityState.Deleted;
                 context.SaveChanges();
             }
         }
@@ -100,7 +100,7 @@ namespace DAL.ReposytoryModel.AbstractClasses
         {
             using (var context = new ManagerSaleDBEntities())
             {
-                context.Entry(item).State = EntityState.Modified;
+                context.Entry(ObjectToEntity(item)).State = EntityState.Modified;
                 context.SaveChanges();
             }
         }

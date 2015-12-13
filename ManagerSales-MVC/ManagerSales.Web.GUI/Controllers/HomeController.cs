@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
@@ -7,6 +8,7 @@ using ManagerSales.BL.ModelsHandlers;
 using ManagerSales.BL.ModelsHandlers.Intarfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Newtonsoft.Json;
 
 namespace ManagerSales.Web.GUI.Controllers
 {
@@ -29,19 +31,7 @@ namespace ManagerSales.Web.GUI.Controllers
             Mapper.CreateMap<Manager, Models.ManagerSalesModels.Manager>();
 
 
-            Mapper.CreateMap<Sale, Models.ManagerSalesModels.Sale>()
-                .ForMember(
-                dest => dest.CustomerName,
-                opt => opt.MapFrom(src => src.Customer.Name)
-                )
-                .ForMember(
-                dest => dest.ManagerName,
-                opt => opt.MapFrom(src => src.Manager.LastName)
-                )
-                .ForMember(
-                dest => dest.ProductName,
-                opt => opt.MapFrom(src => src.Product.Name)
-                );
+            Mapper.CreateMap<Sale, Models.ManagerSalesModels.Sale>();
         }
 
         [HttpGet]
@@ -49,6 +39,56 @@ namespace ManagerSales.Web.GUI.Controllers
         public ActionResult Index()
         {
             return View(_saleHandler.GetList(x => true).Select(Mapper.Map<Sale, Models.ManagerSalesModels.Sale>));
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public JsonResult GetJsonForProductGrafic()
+        {
+            var sales =
+                 Mapper.Map<IEnumerable<Sale>, IEnumerable<Models.ManagerSalesModels.Sale>>(_saleHandler.GetList(x => true));
+
+            var products =
+                Mapper.Map<IEnumerable<Product>, IEnumerable<Models.ManagerSalesModels.Product>>(_productHandler.GetList(x => true));
+
+            var dict = new
+            {
+                name = "Products",
+                colorByPoint = true,
+                data = products
+                .Select(x => new { name = x.Name, y = sales.Count(y => y.Product.Id == x.Id) })
+                .ToArray()
+            };
+
+            var array = new object[] { dict };
+
+            return Json(array, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public JsonResult GetJsonForManagerGrafic()
+        {
+            var sales =
+                Mapper.Map<IEnumerable<Sale>, IEnumerable<Models.ManagerSalesModels.Sale>>(_saleHandler.GetList(x => true));
+
+            var salesNumber = (double)sales.Count() / 100;
+
+            var managers =
+                Mapper.Map<IEnumerable<Manager>, IEnumerable<Models.ManagerSalesModels.Manager>>(_managerHandler.GetList(x => true));
+
+            var dict = new
+            {
+                name = "Managers",
+                colorByPoint = true,
+                data = managers
+                .Select(x => new { name = x.LastName, y = salesNumber != 0 ? (double)sales.Count(y => y.Manager.Id == x.Id) / salesNumber : 0, drilldown = x.LastName })
+                .ToArray()
+            };
+
+            var array = new object[] { dict };
+
+            return Json(array, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

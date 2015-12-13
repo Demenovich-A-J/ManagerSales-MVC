@@ -11,6 +11,7 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/modernizr")
+
 </head>
 <body>
     <div class="container">
@@ -42,27 +43,6 @@
         @Scripts.Render("~/bundles/jqueryval")
 
         <script>
-            $(document).ready(function () {
-                $.ajax({
-                    url: '@Url.Action("Register","Account")',
-                    type: 'GET',
-                    dataType: 'html',
-                    success: function (result) {
-                        console.log(result);
-                        $("#reg").append(result);
-                    }
-                });
-                $.ajax({
-                    url: '@Url.Action("Login","Account")',
-                    type: 'GET',
-                    dataType: 'html',
-                    success: function (result) {
-                        console.log(result);
-                        $("#reg").append(result);
-                    }
-                });
-            });
-
             $(function () {
 
                 $('#login-form-link').click(function (e) {
@@ -81,6 +61,7 @@
                 });
 
             });
+
         </script>
     </div>
 </body>

@@ -6,8 +6,10 @@ using System.Web.Mvc;
 using AutoMapper;
 using ManagerSales.BL.ModelsHandlers;
 using ManagerSales.BL.ModelsHandlers.Intarfaces;
+using ManagerSales.Web.GUI.Models;
 using ManagerSales.Web.GUI.Models.ManagerSalesModels;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Customer = ManagerSales.BL.Models.Customer;
 using Manager = ManagerSales.BL.Models.Manager;
@@ -33,27 +35,13 @@ namespace ManagerSales.Web.GUI.Controllers
             Mapper.CreateMap<Customer, Models.ManagerSalesModels.Customer>();
             Mapper.CreateMap<Product, Models.ManagerSalesModels.Product>();
             Mapper.CreateMap<Manager, Models.ManagerSalesModels.Manager>();
-            Mapper.CreateMap<Sale, ExSale>();
 
             Mapper.CreateMap<Models.ManagerSalesModels.Customer, Customer>();
             Mapper.CreateMap<Models.ManagerSalesModels.Product, Product>();
             Mapper.CreateMap<Models.ManagerSalesModels.Manager, Manager>();
-            Mapper.CreateMap<ExSale, Sale>();
+            Mapper.CreateMap<Models.ManagerSalesModels.Sale, Sale>();
 
-
-            Mapper.CreateMap<Sale, Models.ManagerSalesModels.Sale>()
-                .ForMember(
-                    dest => dest.CustomerName,
-                    opt => opt.MapFrom(src => src.Customer.Name)
-                )
-                .ForMember(
-                    dest => dest.ManagerName,
-                    opt => opt.MapFrom(src => src.Manager.LastName)
-                )
-                .ForMember(
-                    dest => dest.ProductName,
-                    opt => opt.MapFrom(src => src.Product.Name)
-                );
+            Mapper.CreateMap<Sale, Models.ManagerSalesModels.Sale>();
         }
 
         [HttpGet]
@@ -136,29 +124,59 @@ namespace ManagerSales.Web.GUI.Controllers
             return RedirectToAction("Customers", "Home");
         }
 
-        /*****************************************************************/
         //work on add sale
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult AddSale()
         {
-            return View("Add/AddSale", new ExSale());
+            var products =
+                Mapper.Map<IEnumerable<Product>, IEnumerable<Models.ManagerSalesModels.Product>>(
+                    _productHandler.GetList(x => true)).Select(c => new SelectListItem
+                    {
+                        Value = c.Id.ToString(),
+                        Text = c.Name
+                    });
+            var customers =
+                Mapper.Map<IEnumerable<Customer>, IEnumerable<Models.ManagerSalesModels.Customer>>(
+                    _customerHandler.GetList(x => true)).Select(c => new SelectListItem
+                    {
+                        Value = c.Id.ToString(),
+                        Text = c.Name
+                    });
+            var managers =
+                Mapper.Map<IEnumerable<Manager>, IEnumerable<Models.ManagerSalesModels.Manager>>(
+                    _managerHandler.GetList(x => true)).Select(c => new SelectListItem
+                    {
+                        Value = c.Id.ToString(),
+                        Text = c.LastName
+                    });
+
+            ViewBag.Products = products;
+            ViewBag.Customers = customers;
+            ViewBag.Managers = managers;
+            return View("Add/AddSale", new Models.ManagerSalesModels.Sale());
         }
 
         /*****************************************************************/
         //work on add sale
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult AddSale(ExSale exSale)
+        public ActionResult AddSale(Models.ManagerSalesModels.Sale sale)
         {
+
             try
             {
-                _saleHandler.Add(Mapper.Map<ExSale, Sale>(exSale));
+                var a = Mapper.Map<Models.ManagerSalesModels.Sale, Sale>(sale);
+                //a.Customer.Name = _customerHandler.GetItemById(a.CustomerId).Name;
+                //a.Product.Name = _productHandler.GetItemById(a.ProductId).Name;
+                //a.Manager.LastName = _managerHandler.GetItemById(a.ManagerId).LastName;
+
+                _saleHandler.Add(a);
             }
             catch (Exception ex)
             {
                 ViewBag.Exception = ex.Message;
-                return View("Add/AddSale", new ExSale());
+                return View("Add/AddSale", new Models.ManagerSalesModels.Sale());
             }
 
             return RedirectToAction("Index", "Home");
@@ -173,12 +191,17 @@ namespace ManagerSales.Web.GUI.Controllers
             return View("Add/AddUser");
         }
 
-        [HttpPost]
+        [HttpGet]
         [Authorize(Roles = "Admin")]
-        public ActionResult AddUser(ApplicationUserManager u)
+        public ActionResult RemoveUser(string id)
         {
-            return View("Edit/EditUser");
+            var userManager = HttpContext.GetOwinContext()
+                                            .GetUserManager<ApplicationUserManager>();
+            userManager.Delete(userManager.Users.FirstOrDefault(x => x.Id == id));
+
+            return RedirectToAction("Users", "Home");
         }
+
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
@@ -248,13 +271,28 @@ namespace ManagerSales.Web.GUI.Controllers
             ViewBag.Customers = customers;
             ViewBag.Managers = managers;
 
-            return View("Edit/EditSale", Mapper.Map<Sale, ExSale>(_saleHandler.GetItemById(value)));
+            return View("Edit/EditSale", Mapper.Map<Sale, Models.ManagerSalesModels.Sale>(_saleHandler.GetItemById(value)));
         }
 
         [HttpPost]
         [Authorize(Roles = "User")]
-        public ActionResult EditSale(ExSale sale)
+        public ActionResult EditSale(Models.ManagerSalesModels.Sale sale)
         {
+            try
+            {
+                var a = Mapper.Map<Models.ManagerSalesModels.Sale, Sale>(sale);
+                //a.Customer.Name = _customerHandler.GetItemById(a.CustomerId).Name;
+                //a.Product.Name = _productHandler.GetItemById(a.ProductId).Name;
+                //a.Manager.LastName = _managerHandler.GetItemById(a.ManagerId).LastName;
+
+                _saleHandler.Update(a);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Exception = ex.Message;
+                return View("Edit/EditSale", sale);
+            }
+
             return RedirectToAction("Index", "Home");
         }
 

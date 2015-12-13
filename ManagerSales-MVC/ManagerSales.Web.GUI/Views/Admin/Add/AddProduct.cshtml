@@ -4,7 +4,12 @@
     ViewBag.Title = "Add Product";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using (Html.BeginForm("AddProduct", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "login-form", @class = "form-horizontal", role = "form" }))
+
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<script src="~/Scripts/validate.config.js"></script>
+
+@using (Html.BeginForm("AddProduct", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "product-form", @class = "form-horizontal", role = "form" }))
 {
     <h2>Add Product</h2>
     <div class="form-group">

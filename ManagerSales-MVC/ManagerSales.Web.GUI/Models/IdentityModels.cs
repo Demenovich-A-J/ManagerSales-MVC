@@ -29,5 +29,8 @@ namespace ManagerSales.Web.GUI.Models
         {
             return new ApplicationDbContext();
         }
+
+        public override IDbSet<ApplicationUser> Users { get; set; }
+
     }
 }
