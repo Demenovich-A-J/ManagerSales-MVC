@@ -7,7 +7,7 @@ using ManagerSales.BL.ModelsHandlers.Intarfaces;
 
 namespace ManagerSales.BL.ModelsHandlers.AbstractClasses
 {
-    public abstract class ModelHandler<T,K> : IModelHandler<T> 
+    public abstract class ModelHandler<T,K> : IModelHandler<T>
         where T : class 
         where K : class
     {
@@ -26,19 +26,19 @@ namespace ManagerSales.BL.ModelsHandlers.AbstractClasses
             return DalToBlModel(Repository.FindById(id));
         }
 
-        public void Add(T item)
+        public virtual void Add(T item)
         {
             Repository.Add(BlToDalModel(item));
         }
 
         public void Remove(T item)
         {
-            throw new NotImplementedException();
+            Repository.Remove(BlToDalModel(item));
         }
 
         public void Update(T item)
         {
-            throw new NotImplementedException();
+            Repository.Remove(BlToDalModel(item));
         }
 
 
@@ -46,5 +46,8 @@ namespace ManagerSales.BL.ModelsHandlers.AbstractClasses
         {
             return new List<T>(Repository.GetAll().Select(DalToBlModel).Where(where));
         }
+
+        public abstract bool IsExist(K item, IGenericDataRepository<K> repository);
+        
     }
 }

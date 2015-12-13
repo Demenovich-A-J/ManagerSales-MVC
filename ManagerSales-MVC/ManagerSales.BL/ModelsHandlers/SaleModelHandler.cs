@@ -33,5 +33,17 @@ namespace ManagerSales.BL.ModelsHandlers
         {
             return Mapper.Map<Models.Sale, Sale>(item);
         }
+
+        public override bool IsExist(Sale item, IGenericDataRepository<Sale> repository)
+        {
+            Sale resulIitem;
+
+            lock (repository)
+            {
+                resulIitem = repository.GetSingle(item);
+            }
+
+            return resulIitem != null;
+        }
     }
 }
