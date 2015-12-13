@@ -1,2 +1,55 @@
-﻿@model IEnumerable<ApplicationUserManager>
+﻿@model IEnumerable<ManagerSales.Web.GUI.Models.ApplicationUser>
 
+@{
+    Layout = null;
+}
+@using Microsoft.AspNet.Identity
+@using GridMvc.Html
+
+@if (User.IsInRole("Admin"))
+{
+    <button id="add" type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-plus"></span><a href="@Url.Action("AddUser","Admin")">Добавить</a>
+    </button>
+    @helper CustomRenderingOfColumn(ManagerSales.Web.GUI.Models.ApplicationUser user)
+    {
+        <div class="btn-group" style="margin: 0;">
+            <a style="color: #000!important;" class="btn btn-default" href="/Admin/EditUser?id=@user.Id">Редактировать</a>
+            <a style="color: #000!important;" class="btn btn-default" href="/Admin/RemoveUser?id=@user.Id">Удалить</a>
+        </div>
+}
+    @helper UserRolesRender(ManagerSales.Web.GUI.Models.ApplicationUser user)
+    {
+        <ul class="list-group">
+            @{
+                foreach (var role in ((ApplicationUserManager)ViewBag.Manager).GetRoles(user.Id))
+                {
+                    <li style="color: #000!important;" class="list-group-item">@role</li>
+                }
+            }
+        </ul>
+}
+
+
+    @Html.Grid(Model).Named("grid").Columns(columns =>
+    {
+        columns.Add(c => c.UserName).Titled("Name").Filterable(true);
+        columns.Add(c => c.Email).Titled("Email").Filterable(true);
+        columns.Add()
+            .Titled("Roles")
+            .Encoded(false)
+            .Sanitized(false)
+            .RenderValueAs(o => UserRolesRender(o));
+        columns.Add()
+            .Titled("Action")
+            .Encoded(false)
+            .Sanitized(false)
+            .RenderValueAs(o => CustomRenderingOfColumn(o));
+
+    }).Sortable(true).WithPaging(10)
+
+}
+else
+{
+    <h1>You have not enough permissions</h1>
+}

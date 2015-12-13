@@ -183,6 +183,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AppDbInitializer.cs" />
     <Compile Include="Models\ManagerSalesModels\Customer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
@@ -191,6 +192,7 @@
     <Compile Include="Models\ManagerSalesModels\Product.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\ManagerSalesModels\Sale.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -269,6 +271,7 @@
     <Content Include="Views\Admin\Edit\EditCustomer.cshtml" />
     <Content Include="Views\Admin\Edit\EditProduct.cshtml" />
     <Content Include="Views\Admin\Add\AddSale.cshtml" />
+    <Content Include="Views\Home\Users.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

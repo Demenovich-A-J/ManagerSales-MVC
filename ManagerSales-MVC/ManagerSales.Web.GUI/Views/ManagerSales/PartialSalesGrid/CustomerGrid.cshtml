@@ -5,8 +5,37 @@
 }
 @using GridMvc.Html
 
-@Html.Grid(Model).Named("grid").Columns(columns =>
+@if (User.IsInRole("Admin"))
+{
+    <button id="add" type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-plus"></span><a href="@Url.Action("AddCustomer","Admin")">Добавить</a>
+    </button>
+    @helper CustomRenderingOfColumn(ManagerSales.Web.GUI.Models.ManagerSalesModels.Customer customer)
+    {
+        <div class="btn-group" style="margin: 0;">
+            <a class="btn btn-default" href="/Admin/EditCustomer?id=@customer.Id">Редактировать</a>
+            <a class="btn btn-default" href="/Admin/RemoveCustomer?id=@customer.Id">Удалить</a>
+        </div>
+    }
+
+    @Html.Grid(Model).Named("grid").Columns(columns =>
     {
         columns.Add(c => c.Name).Titled("Name").Filterable(true);
-        
+        columns.Add()
+            .Titled("Action")
+            .Encoded(false)
+            .Sanitized(false)
+            .RenderValueAs(o => CustomRenderingOfColumn(o));
+
     }).Sortable(true).WithPaging(10)
+}
+else
+{
+    @Html.Grid(Model).Named("grid").Columns(columns =>
+    {
+        columns.Add(c => c.Name).Titled("Name").Filterable(true);
+
+    }).Sortable(true).WithPaging(10)
+}
+
+

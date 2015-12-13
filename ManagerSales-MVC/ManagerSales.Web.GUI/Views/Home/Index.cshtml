@@ -3,38 +3,19 @@
     ViewBag.Title = "Home Page";
 }
 @using GridMvc.Html
-@using ManagerSales.Web.GUI.Models.ManagerSalesModels
 
 <h1>Продажи</h1>
+
 <div id="table">
-    @helper CustomRenderingOfColumn(Sale order)
-    {
-        <div class="btn-group">
-            <a class="btn btn-default" href="Admin/EditSale?id=@order.Id">Редактировать</a>
-            <a class="btn btn-default" href="ManagerSales/Remove?id=@order.Id">Удалить</a>
-        </div>
+    @{
+        Html.RenderAction("SaleGrid","ManagerSales");
     }
-
-
-    @Html.Grid(Model).Named("grid").Columns(columns =>
-    {
-        columns.Add(c => c.Date).Titled("Date").Filterable(true);
-        columns.Add(c => c.ManagerName).Titled("Manager").Filterable(true);
-        columns.Add(c => c.CustomerName).Titled("Customer").Filterable(true);
-        columns.Add(c => c.ProductName).Titled("Product").Filterable(true);
-        columns.Add(c => c.Summ).Titled("Summ").Filterable(true);
-        columns.Add()
-            .Encoded(false)
-            .Sanitized(false)
-            .SetWidth(30)
-            .RenderValueAs(o => CustomRenderingOfColumn(o));
-    }).Sortable(true).WithPaging(10)
 </div>
 <script>
     $(document).ready(function () {
         $("#refresh").click(function () {
             $.ajax({
-                url: '@Url.Action("Index","ManagerSales")',
+                url: '@Url.Action("SaleGrid","ManagerSales")',
                 type: 'Get',
                 success: function (response) {
                     $("#table").replaceWith(response);
@@ -44,11 +25,4 @@
             });
         });
     });
-    function Edit(id) {
-       console.log(id);
-    }
-    function Remove(id) {
-        console.log(id);
-        $.get('@Url.Action("Edit","ManagerSales")', { id: id });
-    }
 </script>

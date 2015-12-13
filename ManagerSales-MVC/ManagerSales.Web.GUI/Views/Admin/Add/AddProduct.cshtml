@@ -1,17 +1,18 @@
 ﻿@model ManagerSales.Web.GUI.Models.ManagerSalesModels.Product
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Add Product";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using (Html.BeginForm("AddProduct", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "login-form", @class = "form-horizontal", role = "form" }))
 {
     <h2>Add Product</h2>
     <div class="form-group">
-        @Html.LabelFor(m => m.Name, new { @class = "sr-only" })
+        <h4 style="color: red">@Html.Raw(ViewBag.Exception)</h4>
+        @Html.LabelFor(m => m.Name, new {@class = "sr-only"})
         <div class="col-sm-10">
-            @Html.TextBoxFor(m => m.Name, new { @id = "Name", @class = "form-control", @placeholder = "Name" })
-            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(m => m.Name, new {@id = "Name", @class = "form-control", @placeholder = "Name"})
+            @Html.ValidationMessageFor(m => m.Name, "", new {@class = "text-danger"})
         </div>
     </div>
         

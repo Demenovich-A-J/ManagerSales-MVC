@@ -44,7 +44,7 @@ namespace ManagerSales.Web.GUI.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult SaleGrid()
         {
             return View("PartialSalesGrid/SaleGrid", _saleHandler.GetList(x => true).Select(Mapper.Map<Sale, Models.ManagerSalesModels.Sale>).ToList());
         }

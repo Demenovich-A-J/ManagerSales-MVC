@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using AutoMapper;
 using DAL.ReposytoryModel.AbstractClasses;
@@ -14,6 +15,18 @@ namespace DAL.ReposytoryModel
         {
             Mapper.CreateMap<Manager, EntytiModel.Manager>();
             Mapper.CreateMap<EntytiModel.Manager, Manager>();
+        }
+
+        public override void Remove(Manager item)
+        {
+            using (var context = new ManagerSaleDBEntities())
+            {
+                context.Sale.RemoveRange(context.Sale.Where(x => x.ManagerId == item.Id));
+                context.DocumentInfo.RemoveRange(context.DocumentInfo.Where(x => x.ManagerId == item.Id));
+
+                context.Entry(ObjectToEntity(item)).State = EntityState.Deleted;
+                context.SaveChanges();
+            }
         }
 
         protected override EntytiModel.Manager ObjectToEntity(Manager item)

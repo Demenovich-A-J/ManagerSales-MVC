@@ -9,12 +9,9 @@
 <h1>Заказчики</h1>
 
 <div id="table">
-
-    @Html.Grid(Model).Named("grid").Columns(columns =>
-    {
-        columns.Add(c => c.Name).Titled("Name").Filterable(true);
-
-    }).Sortable(true).WithPaging(10)
+    @{
+        Html.RenderAction("CustomerGrid", "ManagerSales");
+    }
 </div>
 <script>
     $(document).ready(function () {

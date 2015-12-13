@@ -1,8 +1,23 @@
-﻿@model ApplicationUserManager
+﻿@model ManagerSales.Web.GUI.Models.ApplicationUser
 
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    ViewBag.Title = "Add User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>title</h2>
+<h2>Add User</h2>
+
+
+@{
+    Html.RenderAction("Register", "Account");
+}
+
+<link href="~/Content/styles.css" rel="stylesheet" type="text/css" />
+
+<script>
+    $(document).ready(function () {
+        document.getElementById("register-form").style.display = "block";
+        $('#register-form-link').removeClass('active');
+
+    });
+</script>

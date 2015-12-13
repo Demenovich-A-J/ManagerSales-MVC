@@ -1,8 +1,10 @@
 ﻿@model ManagerSales.Web.GUI.Models.ManagerSalesModels.ExSale
 
 @{
+    ViewBag.Title = "Edit sale";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 
 @using (Html.BeginForm("EditSale", "Admin", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {id = "login-form", @class = "form-horizontal", role = "form"}))
 {

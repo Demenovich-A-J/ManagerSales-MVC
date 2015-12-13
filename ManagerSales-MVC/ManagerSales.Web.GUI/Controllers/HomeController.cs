@@ -1,9 +1,12 @@
 ﻿using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using ManagerSales.BL.Models;
 using ManagerSales.BL.ModelsHandlers;
 using ManagerSales.BL.ModelsHandlers.Intarfaces;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace ManagerSales.Web.GUI.Controllers
 {
@@ -46,6 +49,13 @@ namespace ManagerSales.Web.GUI.Controllers
         public ActionResult Index()
         {
             return View(_saleHandler.GetList(x => true).Select(Mapper.Map<Sale, Models.ManagerSalesModels.Sale>));
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult Users()
+        {
+            return View();
         }
 
         [HttpGet]

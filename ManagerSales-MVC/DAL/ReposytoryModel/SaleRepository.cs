@@ -46,7 +46,7 @@ namespace DAL.ReposytoryModel
                 resItem = context
                     .Set<EntytiModel.Sale>()
                     .Select(EntityToObject)
-                    .FirstOrDefault(x => x.Manager == item.Manager);
+                    .FirstOrDefault(x => x.Manager == item.Manager && x.Product == item.Product && x.Customer == item.Customer && x.Date == item.Date);
             }
             return resItem;
         }

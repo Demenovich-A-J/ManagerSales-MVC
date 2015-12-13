@@ -111,8 +111,17 @@ namespace ManagerSales.Web.GUI.Controllers
 
             UserManager.AddToRole(user.Id, "User");
 
-            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-            return RedirectToAction("Index", "Home");
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("UsersGrid", "Admin");
+            }
+            else
+            {
+                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                return RedirectToAction("Index", "Home");
+            }
+            
         }
 
         //
@@ -123,6 +132,7 @@ namespace ManagerSales.Web.GUI.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            Dispose(true);
             return RedirectToAction("Index", "Home");
         }
 

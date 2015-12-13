@@ -1,0 +1,12 @@
+﻿@model IEnumerable<ManagerSales.Web.GUI.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Users</h1>
+
+@{
+    Html.RenderAction("UsersGrid", "Admin");
+}

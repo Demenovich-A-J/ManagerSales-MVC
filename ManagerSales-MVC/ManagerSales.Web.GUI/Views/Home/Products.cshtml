@@ -5,16 +5,11 @@
 @using GridMvc.Html
 
 <h1>Продукты</h1>
-<button id="add" type="button" class="btn btn-default">
-    <span class="glyphicon glyphicon-plus"></span><a href="@Url.Action("AddProduct","Admin")">Добавить</a>
-</button>
-<div id="table">
 
-    @Html.Grid(Model).Named("grid").Columns(columns =>
-    {
-        columns.Add(c => c.Name).Titled("Name").Filterable(true);
-
-    }).Sortable(true).WithPaging(10)
+<div id="table" style="width: 40%;">
+    @{
+        Html.RenderAction("ManagerGrid", "ManagerSales");
+    }
 </div>
 <script>
     $(document).ready(function () {
