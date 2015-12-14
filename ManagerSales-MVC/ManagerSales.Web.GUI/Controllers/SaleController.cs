@@ -39,14 +39,14 @@ namespace ManagerSales.Web.GUI.Controllers
         public ActionResult Index()
         {
             return View("Sales",
-                _saleHandler.GetList(x => true).Select(Mapper.Map<Sale, Models.ManagerSalesModels.Sale>).ToList());
+                _saleHandler.GetAll().Select(Mapper.Map<Sale, Models.ManagerSalesModels.Sale>).ToList());
         }
 
         [HttpGet]
         [AllowAnonymous]
         public ActionResult SaleGrid()
         {
-            return View("SaleGrid", _saleHandler.GetList(x => true).Select(Mapper.Map<Sale, Models.ManagerSalesModels.Sale>).ToList());
+            return View("SaleGrid", _saleHandler.GetAll().Select(Mapper.Map<Sale, Models.ManagerSalesModels.Sale>).ToList());
         }
 
         [HttpGet]
@@ -54,19 +54,19 @@ namespace ManagerSales.Web.GUI.Controllers
         public ActionResult AddSale()
         {
             ViewBag.Products = Mapper.Map<IEnumerable<Product>, IEnumerable<Models.ManagerSalesModels.Product>>(
-                _productHandler.GetList(x => true)).Select(c => new SelectListItem
+                _productHandler.GetAll()).Select(c => new SelectListItem
                 {
                     Value = c.Id.ToString(),
                     Text = c.Name
                 });
             ViewBag.Customers = Mapper.Map<IEnumerable<Customer>, IEnumerable<Models.ManagerSalesModels.Customer>>(
-                _customerHandler.GetList(x => true)).Select(c => new SelectListItem
+                _customerHandler.GetAll()).Select(c => new SelectListItem
                 {
                     Value = c.Id.ToString(),
                     Text = c.Name
                 });
             ViewBag.Managers = Mapper.Map<IEnumerable<Manager>, IEnumerable<Models.ManagerSalesModels.Manager>>(
-                _managerHandler.GetList(x => true)).Select(c => new SelectListItem
+                _managerHandler.GetAll()).Select(c => new SelectListItem
                 {
                     Value = c.Id.ToString(),
                     Text = c.LastName
@@ -99,21 +99,21 @@ namespace ManagerSales.Web.GUI.Controllers
             int.TryParse(id, out value);
             var products =
                 Mapper.Map<IEnumerable<Product>, IEnumerable<Models.ManagerSalesModels.Product>>(
-                    _productHandler.GetList(x => true)).Select(c => new SelectListItem
+                    _productHandler.GetAll()).Select(c => new SelectListItem
                     {
                         Value = c.Id.ToString(),
                         Text = c.Name
                     });
             var customers =
                 Mapper.Map<IEnumerable<Customer>, IEnumerable<Models.ManagerSalesModels.Customer>>(
-                    _customerHandler.GetList(x => true)).Select(c => new SelectListItem
+                    _customerHandler.GetAll()).Select(c => new SelectListItem
                     {
                         Value = c.Id.ToString(),
                         Text = c.Name
                     });
             var managers =
                 Mapper.Map<IEnumerable<Manager>, IEnumerable<Models.ManagerSalesModels.Manager>>(
-                    _managerHandler.GetList(x => true)).Select(c => new SelectListItem
+                    _managerHandler.GetAll()).Select(c => new SelectListItem
                     {
                         Value = c.Id.ToString(),
                         Text = c.LastName

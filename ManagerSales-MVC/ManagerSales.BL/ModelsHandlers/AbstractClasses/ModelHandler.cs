@@ -47,6 +47,12 @@ namespace ManagerSales.BL.ModelsHandlers.AbstractClasses
             return new List<T>(Repository.GetAll().Select(DalToBlModel).Where(where));
         }
 
+        public ICollection<T> GetAll()
+        {
+            return new List<T>(Repository.GetAll().Select(DalToBlModel));
+
+        }
+
         public abstract bool IsExist(K item, IGenericDataRepository<K> repository);
         
     }

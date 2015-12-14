@@ -25,14 +25,14 @@ namespace ManagerSales.Web.GUI.Controllers
         public ActionResult Index()
         {
             return View("Customers",
-                _customerHandler.GetList(x => true).Select(Mapper.Map<Customer, Models.ManagerSalesModels.Customer>).ToList());
+                _customerHandler.GetAll().Select(Mapper.Map<Customer, Models.ManagerSalesModels.Customer>).ToList());
         }
 
         [HttpGet]
         [AllowAnonymous]
         public ActionResult CustomerGrid()
         {
-            return View("CustomerGrid", _customerHandler.GetList(x => true).Select(Mapper.Map<Customer, Models.ManagerSalesModels.Customer>).ToList());
+            return View("CustomerGrid", _customerHandler.GetAll().Select(Mapper.Map<Customer, Models.ManagerSalesModels.Customer>).ToList());
         }
 
         [HttpGet]
@@ -67,7 +67,7 @@ namespace ManagerSales.Web.GUI.Controllers
             int.TryParse(id, out value);
             var customers =
                 Mapper.Map<IEnumerable<Customer>, IEnumerable<Models.ManagerSalesModels.Customer>>(
-                    _customerHandler.GetList(x => true)).Select(c => new SelectListItem
+                    _customerHandler.GetAll()).Select(c => new SelectListItem
                     {
                         Value = c.Id.ToString(),
                         Text = c.Name

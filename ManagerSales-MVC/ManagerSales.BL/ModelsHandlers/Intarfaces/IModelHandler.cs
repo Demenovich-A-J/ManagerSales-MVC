@@ -11,5 +11,7 @@ namespace ManagerSales.BL.ModelsHandlers.Intarfaces
         void Remove(T item);
         void Update(T item);
         ICollection<T> GetList(Func<T, bool> where);
+        ICollection<T> GetAll();
+
     }
 }

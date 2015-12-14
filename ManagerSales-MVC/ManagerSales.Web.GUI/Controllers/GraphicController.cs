@@ -32,11 +32,11 @@ namespace ManagerSales.Web.GUI.Controllers
         {
             var sales =
                 Mapper.Map<IEnumerable<Sale>, IEnumerable<Models.ManagerSalesModels.Sale>>(
-                    _saleHandler.GetList(x => true));
+                    _saleHandler.GetAll());
 
             var products =
                 Mapper.Map<IEnumerable<Product>, IEnumerable<Models.ManagerSalesModels.Product>>(
-                    _productHandler.GetList(x => true));
+                    _productHandler.GetAll());
 
             var dict = new
             {
@@ -58,13 +58,13 @@ namespace ManagerSales.Web.GUI.Controllers
         {
             var sales =
                 Mapper.Map<IEnumerable<Sale>, IEnumerable<Models.ManagerSalesModels.Sale>>(
-                    _saleHandler.GetList(x => true));
+                    _saleHandler.GetAll());
 
             var salesNumber = (double) sales.Count()/100;
 
             var managers =
                 Mapper.Map<IEnumerable<Manager>, IEnumerable<Models.ManagerSalesModels.Manager>>(
-                    _managerHandler.GetList(x => true));
+                    _managerHandler.GetAll());
 
             var dict = new
             {
