@@ -1,4 +1,4 @@
-﻿@model ManagerSales.Web.GUI.Models.User
+﻿@model ManagerSales.Web.GUI.Models.ApplicationUser
 
 @{
     ViewBag.Title = "Edit User";
@@ -7,7 +7,7 @@
 
     <h2>Edit User</h2>
     
-    @using (Html.BeginForm("UsersGrid", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    @using (Html.BeginForm("UsersGrid", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         <h2>Edit Product</h2>
         @Html.HiddenFor(m => m.Id, new { @class = "sr-only" })

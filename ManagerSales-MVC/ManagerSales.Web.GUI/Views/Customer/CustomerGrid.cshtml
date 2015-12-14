@@ -1,22 +1,22 @@
-﻿@model IEnumerable<ManagerSales.Web.GUI.Models.ManagerSalesModels.Product>
+﻿@model IEnumerable<ManagerSales.Web.GUI.Models.ManagerSalesModels.Customer>
+
 @{
     Layout = null;
 }
 @using GridMvc.Html
 
-
 @if (User.IsInRole("Admin"))
 {
     <button id="add" type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-plus"></span><a href="@Url.Action("AddProduct","Admin")">Add</a>
+        <span class="glyphicon glyphicon-plus"></span><a href="@Url.Action("AddCustomer","Customer")">Add</a>
     </button>
-    @helper CustomRenderingOfColumn(ManagerSales.Web.GUI.Models.ManagerSalesModels.Product product)
+    @helper CustomRenderingOfColumn(ManagerSales.Web.GUI.Models.ManagerSalesModels.Customer customer)
     {
         <div class="btn-group" style="margin: 0;">
-            <a class="btn btn-default" href="/Admin/EditManager?id=@product.Id">Edit</a>
-            <a class="btn btn-default" href="/Admin/RemoveManager?id=@product.Id">Delete</a>
+            <a class="btn btn-default" href="/Customer/EditCustomer?id=@customer.Id">Edit</a>
+            <a class="btn btn-default" href="/Customer/RemoveCustomer?id=@customer.Id">Delete</a>
         </div>
-}
+    }
 
     @Html.Grid(Model).Named("grid").Columns(columns =>
     {
@@ -25,7 +25,6 @@
             .Titled("Action")
             .Encoded(false)
             .Sanitized(false)
-            .Filterable(false)
             .RenderValueAs(o => CustomRenderingOfColumn(o));
 
     }).Sortable(true).WithPaging(10)

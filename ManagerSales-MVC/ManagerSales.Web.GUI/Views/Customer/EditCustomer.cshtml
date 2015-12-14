@@ -9,7 +9,7 @@
 <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 <script src="~/Scripts/validate.config.js"></script>
 
-@using (Html.BeginForm("EditCustomer", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "customer-form", @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("EditCustomer", "Customer", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "customer-form", @class = "form-horizontal", role = "form" }))
 {
     <h2>Edit customer</h2>
     <div class="form-group">

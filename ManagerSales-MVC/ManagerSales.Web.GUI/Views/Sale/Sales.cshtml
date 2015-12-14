@@ -1,0 +1,137 @@
+﻿@model IEnumerable<ManagerSales.Web.GUI.Models.ManagerSalesModels.Sale>
+@{
+    ViewBag.Title = "Sales grid";
+}
+
+<h1>Sales</h1>
+<button id="show" type="button" class="btn btn-default">Show Grafic</button>
+<button style="display: none" id="hide" type="button" class="btn btn-default">Hide</button>
+<div id="res" style="display: none">
+    <div id="container" style="width: 100%; height: 400px;"></div>
+    <div id="container2" style="width: 100%; height: 400px;"></div>
+</div>
+<div id="table" >
+    @{
+        Html.RenderAction("SaleGrid", "Sale");
+    }
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script>
+    $(document).ready(function() {
+        function chart(data) {
+            $('#container').highcharts({
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Managers'
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: 'The percent of sold products'
+                    }
+
+                },
+                legend: {
+                    enabled: false
+                },
+                series: data
+            });
+        }
+
+        function chart2(data) {
+            $('#container2').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Sold products'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: data
+            });
+        }
+
+        $("#refresh").click(function() {
+            $.ajax({
+                url: '@Url.Action("SaleGrid", "Sale")',
+                type: 'Get',
+                success: function(response) {
+                    $("#table").replaceWith(response);
+                },
+                async: true,
+                processData: false
+            });
+        });
+ 
+
+    function getCharts() {
+        $.ajax({
+            type: "Get",
+            contentType: "application/json; charset=utf-8",
+            url: '@Url.Action("GetJsonForProductGraphic", "Graphic")',
+            data: "{}",
+            dataType: "json",
+            success: function(Result) {
+                chart(Result);
+                console.log(Result);
+            },
+            error: function(Result) {
+                alert("Error");
+            }
+        });
+    }
+
+    function getCharts2() {
+        $.ajax({
+            type: "Get",
+            contentType: "application/json; charset=utf-8",
+            url: '@Url.Action("GetJsonForManagerGraphic", "Graphic")',
+                    data: "{}",
+                    dataType: "json",
+                    success: function (Result2) {
+                        chart2(Result2);
+                        console.log(Result2);
+                    },
+                    error: function (Result2) {
+                        alert("Error");
+                    }
+                });
+        }
+
+        $("#show").click(function () {
+            getCharts();
+            getCharts2();
+            $("#hide").show();
+            $("#show").hide();
+            $("#res").show();
+            $("#table").hide();
+        });
+        $("#hide").click(function () {
+            $("#show").show();
+            $("#hide").hide();
+            $("#res").hide();
+            $("#table").show();
+        });
+    });
+</script>

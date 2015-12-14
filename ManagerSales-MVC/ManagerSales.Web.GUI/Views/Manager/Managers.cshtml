@@ -1,22 +1,23 @@
-﻿@model IEnumerable<ManagerSales.Web.GUI.Models.ManagerSalesModels.Customer>
+﻿@model IEnumerable<ManagerSales.Web.GUI.Models.ManagerSalesModels.Manager>
 
 @{
-    ViewBag.Title = "Customers";
+    ViewBag.Title = "Manager Grid";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Customers</h1>
+<h1>Managers</h1>
 
 <div id="table">
+
     @{
-        Html.RenderAction("CustomerGrid", "ManagerSales");
+        Html.RenderAction("ManagerGrid", "Manager");
     }
 </div>
 <script>
     $(document).ready(function () {
         $("#refresh").click(function () {
             $.ajax({
-                url: '@Url.Action("CustomerGrid","ManagerSales")',
+                url: '@Url.Action("ManagerGrid","Manager")',
                 type: 'Get',
                 success: function (response) {
                     $("#table").replaceWith(response);

@@ -6,13 +6,13 @@
 @if (User.IsInRole("Admin"))
 {
     <button id="add" type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-plus"></span><a href="@Url.Action("AddSale","Admin")">Add</a>
+        <span class="glyphicon glyphicon-plus"></span><a href="@Url.Action("AddSale","Sale")">Add</a>
     </button>
     @helper CustomRenderingOfColumn(ManagerSales.Web.GUI.Models.ManagerSalesModels.Sale order)
     {
         <div class="btn-group" style="margin: 0;">
-            <a class="btn btn-default" href="/Admin/EditSale?id=@order.Id">Edit</a>
-            <a class="btn btn-default" href="/Admin/RemoveSale?id=@order.Id">Delete</a>
+            <a class="btn btn-default" href="/Sale/EditSale?id=@order.Id">Edit</a>
+            <a class="btn btn-default" href="/Sale/RemoveSale?id=@order.Id">Delete</a>
         </div>
     }
 

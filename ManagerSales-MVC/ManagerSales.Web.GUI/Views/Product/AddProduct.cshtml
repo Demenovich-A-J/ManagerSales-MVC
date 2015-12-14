@@ -1,7 +1,7 @@
 ﻿@model ManagerSales.Web.GUI.Models.ManagerSalesModels.Product
 
 @{
-    ViewBag.Title = "Edit Product";
+    ViewBag.Title = "Add Product";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,19 +9,21 @@
 <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 <script src="~/Scripts/validate.config.js"></script>
 
-@using (Html.BeginForm("EditProduct", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "product-form", @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("AddProduct", "Product", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "product-form", @class = "form-horizontal", role = "form" }))
 {
-    <h2>Edit Product</h2>
+    <h2>Add Product</h2>
     <div class="form-group">
+        <h4 style="color: red">@Html.Raw(ViewBag.Exception)</h4>
         @Html.LabelFor(m => m.Name, new {@class = "sr-only"})
         <div class="col-sm-10">
-            @Html.DropDownListFor(m => m.Id, (IEnumerable<SelectListItem>) ViewBag.Customers, new {@id = "customer", @class = "form-control"})
+            @Html.TextBoxFor(m => m.Name, new {@id = "Name", @class = "form-control", @placeholder = "Name"})
             @Html.ValidationMessageFor(m => m.Name, "", new {@class = "text-danger"})
         </div>
     </div>
+        
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-default">Add</button>
         </div>
     </div>
 }

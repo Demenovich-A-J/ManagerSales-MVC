@@ -1,11 +1,9 @@
-﻿using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
+using ManagerSales.Web.GUI.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using ManagerSales.Web.GUI.Models;
 using Microsoft.Owin.Security;
 
 namespace ManagerSales.Web.GUI.Controllers
@@ -28,27 +26,17 @@ namespace ManagerSales.Web.GUI.Controllers
 
         public ApplicationSignInManager SignInManager
         {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
-            }
+            get { return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>(); }
+            private set { _signInManager = value; }
         }
 
         public ApplicationUserManager UserManager
         {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
+            get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
+            private set { _userManager = value; }
         }
+
+        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
         [HttpGet]
         [AllowAnonymous]
@@ -83,11 +71,11 @@ namespace ManagerSales.Web.GUI.Controllers
                 return View("LogReg");
             }
 
-            var result = await SignInManager.PasswordSignInAsync(model.Login, model.Password, false, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Login, model.Password, false, false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Index", "Home");
                 case SignInStatus.LockedOut:
                     return View("LogReg");
                 default:
@@ -105,7 +93,7 @@ namespace ManagerSales.Web.GUI.Controllers
         {
             if (!ModelState.IsValid) return View("LogReg");
 
-            var user = new ApplicationUser { UserName = model.Login, Email = model.Login};
+            var user = new ApplicationUser {UserName = model.Login, Email = model.Login};
             var result = await UserManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded) return View("LogReg");
@@ -114,15 +102,11 @@ namespace ManagerSales.Web.GUI.Controllers
 
             if (User.IsInRole("Admin"))
             {
-                return RedirectToAction("UsersGrid", "Admin");
+                return RedirectToAction("UsersGrid", "User");
             }
-            else
-            {
-                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+            await SignInManager.SignInAsync(user, false, false);
 
-                return RedirectToAction("Index", "Home");
-            }
-            
+            return RedirectToAction("Index", "Home");
         }
 
         //
@@ -156,7 +140,5 @@ namespace ManagerSales.Web.GUI.Controllers
 
             base.Dispose(disposing);
         }
-        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
-
     }
 }
