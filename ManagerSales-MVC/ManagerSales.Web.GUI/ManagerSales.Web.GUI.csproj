@@ -281,6 +281,7 @@
     <Content Include="Views\Graphic\SalesGraphic.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\User\AddRole.cshtml" />
+    <Content Include="Views\User\RemoveRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

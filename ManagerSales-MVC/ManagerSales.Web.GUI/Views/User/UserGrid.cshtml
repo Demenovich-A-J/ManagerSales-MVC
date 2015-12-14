@@ -21,6 +21,8 @@
         <div class="btn-group" style="margin: 0;">
             <a style="color: #000 !important;" class="btn btn-default" href="/User/RemoveUser?id=@user.Id">Delete</a>
             <a style="color: #000 !important;" class="btn btn-default" href="/User/AddRole?id=@user.Id">Add Role</a>
+            <a style="color: #000 !important;" class="btn btn-default" href="/User/RemoveRole?id=@user.Id">Remove Role</a>
+
         </div>
     }
     @helper UserRolesRender(ManagerSales.Web.GUI.Models.ApplicationUser user)
@@ -49,6 +51,7 @@
             .Titled("Action")
             .Encoded(false)
             .Sanitized(false)
+            .SetWidth(300)
             .RenderValueAs(o => CustomRenderingOfColumn(o));
 
     }).Sortable(true).WithPaging(10)

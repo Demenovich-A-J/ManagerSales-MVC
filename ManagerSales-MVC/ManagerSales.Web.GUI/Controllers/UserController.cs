@@ -56,6 +56,42 @@ namespace ManagerSales.Web.GUI.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
+        public ActionResult RemoveRole(string id)
+        {
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>());
+
+            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+            var userName = userManager.Users.FirstOrDefault(x => x.Id == id);
+            if (userName != null)
+            {
+                ViewBag.UserName = userName.UserName;
+            }
+
+            ViewBag.Roles = userManager.Users.FirstOrDefault( x => x.Id == id).Roles.ToList().Select(c => new SelectListItem
+            {
+                Value = roleManager.Roles.FirstOrDefault(x => x.Id == c.RoleId).Name,
+                Text = roleManager.Roles.FirstOrDefault( x => x.Id == c.RoleId).Name
+            });
+
+
+
+            return View(new Role { UserId = id });
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public ActionResult RemoveRole(Role role)
+        {
+            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+            userManager.RemoveFromRole(role.UserId, role.Name);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult UsersGrid()
         {
             var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();

@@ -93,7 +93,7 @@ namespace ManagerSales.Web.GUI.Controllers
         {
             if (!ModelState.IsValid) return View("LogReg");
 
-            var user = new ApplicationUser {UserName = model.Login, Email = model.Login};
+            var user = new ApplicationUser {UserName = model.Login, Email = model.Email};
             var result = await UserManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded) return View("LogReg");

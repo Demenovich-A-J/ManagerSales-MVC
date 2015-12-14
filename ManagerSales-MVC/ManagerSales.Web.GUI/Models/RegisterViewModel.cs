@@ -10,6 +10,7 @@ namespace ManagerSales.Web.GUI.Models
         public string Login { get; set; }
 
         [Required]
+        [EmailAddress(ErrorMessage = "Введите валидный адресс почты.")]
         [Display(Name = "Почта")]
         public string Email { get; set; }
 
